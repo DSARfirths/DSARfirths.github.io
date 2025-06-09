@@ -1,10 +1,16 @@
-/* main.css: estilos personalizados */
-
+/* main.css: estilos base y espaciados */
 body {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  font-family: Arial, sans-serif;
+  color: #333;
 }
-
-.project-card .tags .badge {
+section {
+  scroll-margin-top: 80px;
+}
+.tags .badge {
   margin-right: 0.25rem;
+  margin-top: 0.25rem;
+}
+.card-img-top {
+  object-fit: cover;
+  height: 200px;
 }

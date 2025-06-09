@@ -1,0 +1,10 @@
+/* main.css: estilos personalizados */
+
+body {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.project-card .tags .badge {
+  margin-right: 0.25rem;
+}

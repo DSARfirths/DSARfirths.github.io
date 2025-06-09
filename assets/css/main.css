@@ -1,7 +1,22 @@
+.opacity-0 {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.transition { transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+.fade-in { opacity: 1; transform: translateY(0); }
 /* main.css: estilos base y espaciados */
+:root {
+  --bg-color: #fff;
+  --text-color: #333;
+}
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #eee;
+}
 body {
   font-family: Arial, sans-serif;
-  color: #333;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 section {
   scroll-margin-top: 80px;
@@ -13,4 +28,54 @@ section {
 .card-img-top {
   object-fit: cover;
   height: 200px;
+}
+.site-header {
+  position: relative;
+  background-color: #ffffff;
+}
+.site-logo h1 {
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+}
+.site-info .fw-bold {
+  font-size: 1rem;
+}
+.site-info small {
+  font-size: 0.875rem;
+  color: #666;
+}
+@media (max-width: 576px) {
+  .site-header .container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .site-info {
+    margin-top: 0.5rem;
+  }
+}
+/* Espaciado extra en encabezados */
+h2 {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+/* Asegura que las tarjetas ocupen todo el ancho de la columna */
+.card.h-100 {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tags con separación */
+.tags .badge {
+  margin-right: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+/* Responsive tweaks opcionales */
+@media (max-width: 992px) {
+  /* En pantallas medianas y menores, separar columnas */
+  .col-lg-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }

@@ -33,20 +33,47 @@ document.addEventListener("DOMContentLoaded", () => {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        // 1) Remover estado oculto
-        entry.target.classList.remove("opacity-0"); 
-        // 2) Aplicar animación de entrada
         entry.target.classList.add("fade-in");
-        observer.unobserve(entry.target);
+        entry.target.classList.remove("opacity-0");
+      } else {
+        entry.target.classList.remove("fade-in");
+        entry.target.classList.add("opacity-0");
       }
     });
   }, {
-    threshold: 0.1 // dispara cuando 10 % sea visible 
+    threshold: 0.1
   });
 
-  // Inicializar todos los elementos animables
   document.querySelectorAll(".animate-on-scroll").forEach(el => {
+    // Estado inicial
     el.classList.add("opacity-0", "transition");
     observer.observe(el);
+  });
+// 1) Función de filtrado
+  function filterProjects() {
+    const q = document.getElementById("projectSearch")
+                   .value.trim()
+                   .toLowerCase();
+    // Selecciona TODAS las columnas hijas directas del grid
+    document.querySelectorAll("#projectsGrid > div").forEach(col => {
+      const card = col.querySelector(".card");
+      const title = card.querySelector(".card-title")
+                        .textContent
+                        .toLowerCase();
+      const tags = Array.from(card.querySelectorAll(".tags .badge"))
+                        .map(b => b.textContent.toLowerCase());
+      const match = title.includes(q) || tags.some(t => t.includes(q));
+      col.style.display = match ? "" : "none";
+    });
+  }
+
+  // 2) Asigna eventos
+  const input = document.getElementById("projectSearch");
+  input.addEventListener("input", filterProjects);
+  input.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      filterProjects();
+    }
   });
 });

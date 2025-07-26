@@ -1,43 +1,67 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Toggle modo oscuro
+  // ===== LÓGICA PARA EL MENÚ MÓVIL (HAMBURGUESA) =====
+  const navToggler = document.getElementById("navToggler");
+  const navLinks = document.getElementById("mainNavLinks");
+
+  navToggler.addEventListener("click", () => {
+    navLinks.classList.toggle("is-open");
+    const isExpanded = navLinks.classList.contains("is-open");
+    navToggler.setAttribute("aria-expanded", isExpanded);
+  });
+
+  // ===== Toggle modo oscuro (Sin cambios) =====
   const toggle = document.getElementById("themeToggle");
   toggle.addEventListener("change", () => {
     document.documentElement.setAttribute(
       "data-theme",
       toggle.checked ? "dark" : "light"
     );
-    localStorage.setItem("theme", toggle.checked);
+    // Guardar preferencia en localStorage
+    localStorage.setItem("theme", toggle.checked ? "dark" : "light");
   });
-  if (localStorage.getItem("theme") === "true") {
+  // Cargar tema guardado
+  const savedTheme = localStorage.getItem("theme") || "light";
+  document.documentElement.setAttribute("data-theme", savedTheme);
+  if (savedTheme === "dark") {
     toggle.checked = true;
-    toggle.dispatchEvent(new Event("change"));
   }
-  // Formulario sin recarga
+
+  // ===== Formulario sin recarga (Sin cambios) =====
   const form = document.getElementById("contact-form");
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const data = new FormData(form);
-    try {
-      await fetch(form.action, { method: form.method, body: data });
-      form.innerHTML = `<div class="alert alert-success" role="alert">
-                          ¡Gracias! Agendaste tu cita gratuita, te hablamos pronto.
-                        </div>`;
-    } catch {
-      form.innerHTML = `<div class="alert alert-danger" role="alert">
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      try {
+        const response = await fetch(form.action, { 
+            method: form.method, 
+            body: data,
+            headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+            form.innerHTML = `<div class="form-success-message">
+                                <h3>¡Gracias por tu interés!</h3>
+                                <p>He recibido tu solicitud y me pondré en contacto contigo pronto.</p>
+                                <p>Si quieres, puedes agendar una reunión directamente en mi calendario:</p>
+                                <a href="https://calendly.com/dsarfirths/agendar-cita" class="custom-button" target="_blank" rel="noopener noreferrer">Agendar una cita</a>
+                              </div>`;
+        } else {
+            throw new Error('Network response was not ok.');
+        }
+      } catch (error) {
+        form.innerHTML = `<div class="alert" style="background-color: var(--accent-color);">
                           Error al enviar. Recarga la página e intenta de nuevo.
                         </div>`;
-    }
-  });
-  // Intersection Observer para animaciones
-  // Intersection Observer con threshold sin rootMargin
+      }
+    });
+  }
+
+  // ===== Intersection Observer para animaciones (Sin cambios) =====
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("fade-in");
         entry.target.classList.remove("opacity-0");
-      } else {
-        entry.target.classList.remove("fade-in");
-        entry.target.classList.add("opacity-0");
       }
     });
   }, {
@@ -45,35 +69,47 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.querySelectorAll(".animate-on-scroll").forEach(el => {
-    // Estado inicial
     el.classList.add("opacity-0", "transition");
     observer.observe(el);
   });
-// 1) Función de filtrado
-  function filterProjects() {
-    const q = document.getElementById("projectSearch")
-                   .value.trim()
-                   .toLowerCase();
-    // Selecciona TODAS las columnas hijas directas del grid
-    document.querySelectorAll("#projectsGrid > div").forEach(col => {
-      const card = col.querySelector(".card");
-      const title = card.querySelector(".card-title")
-                        .textContent
-                        .toLowerCase();
-      const tags = Array.from(card.querySelectorAll(".tags .badge"))
-                        .map(b => b.textContent.toLowerCase());
-      const match = title.includes(q) || tags.some(t => t.includes(q));
-      col.style.display = match ? "" : "none";
+
+  // ===== LÓGICA PARA "VER MÁS / VER MENOS" EN SECCIÓN "MI HISTORIA" =====
+  const toggleTextButton = document.getElementById('toggleText');
+  const longTextContainer = document.querySelector('.long-text');
+
+  if (toggleTextButton && longTextContainer) {
+    toggleTextButton.addEventListener('click', () => {
+      longTextContainer.classList.toggle('show-more');
+      
+      if (longTextContainer.classList.contains('show-more')) {
+        toggleTextButton.textContent = 'Ver menos';
+      } else {
+        toggleTextButton.textContent = 'Ver más';
+      }
     });
   }
 
-  // 2) Asigna eventos
-  const input = document.getElementById("projectSearch");
-  input.addEventListener("input", filterProjects);
-  input.addEventListener("keydown", e => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      filterProjects();
-    }
-  });
+  // ===== LÓGICA PARA FILTRAR PROYECTOS =====
+  const searchInput = document.getElementById('projectSearch');
+  const projectsGrid = document.getElementById('projectsGrid');
+
+  if (searchInput && projectsGrid) {
+    const projectCards = Array.from(projectsGrid.getElementsByClassName('project-card'));
+
+    searchInput.addEventListener('input', () => {
+      const searchTerm = searchInput.value.toLowerCase().trim();
+
+      projectCards.forEach(card => {
+        const title = card.querySelector('.card-title').textContent.toLowerCase();
+        const tags = card.dataset.tags.toLowerCase();
+
+        if (title.includes(searchTerm) || tags.includes(searchTerm)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  }
+
 });

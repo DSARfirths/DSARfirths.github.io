@@ -112,4 +112,28 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // ===== INICIALIZACIÓN DEL CARRUSEL DE TESTIMONIOS (SWIPER) =====
+  const testimonialSlider = document.querySelector('.testimonial-slider');
+  if (testimonialSlider) {
+    const swiper = new Swiper(testimonialSlider, {
+      // Opciones
+      loop: true,
+      autoplay: {
+        delay: 5000, // 5 segundos por slide
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      slidesPerView: 1,
+      spaceBetween: 30,
+    });
+  }
+
+
 });

@@ -66,6 +66,32 @@ document.addEventListener("DOMContentLoaded", () => {
   // Inicia la carga de componentes
   loadComponents();
 
+  // ===== HELPERS PARA RENDERIZADO DINÁMICO =====
+
+  /**
+   * Convierte un string de etiqueta a un nombre de clase CSS válido.
+   * Ej: "Análisis de Datos" -> "tag-analisis-de-datos"
+   * @param {string} tag - El string de la etiqueta.
+   * @returns {string} Un nombre de clase CSS.
+   */
+  const tagToClassName = (tag) => {
+    const sanitized = tag.toLowerCase()
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Quita acentos
+      .replace(/\s+/g, '-') // Reemplaza espacios con guiones
+      .replace(/[^a-z0-9-]/g, ''); // Quita caracteres no válidos
+    return `tag-${sanitized}`;
+  };
+
+  /**
+   * Genera el HTML para una lista de etiquetas de proyecto.
+   * @param {string[]} tags - Un array de strings de etiquetas.
+   * @returns {string} El HTML de las etiquetas.
+   */
+  const createTagsHTML = (tags) => {
+    if (!tags || tags.length === 0) return '';
+    return tags.map(tag => `<span class="tag ${tagToClassName(tag)}">${tag}</span>`).join('');
+  };
+
   // ===== LÓGICA PARA RENDERIZAR PROYECTOS DINÁMICAMENTE =====
 
   /**
@@ -74,9 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
    * @returns {string} - El string HTML de la tarjeta del proyecto.
    */
   const createProjectCard = (project) => {
-    // Genera el HTML para las etiquetas dinámicamente
-    const tagsHTML = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
-
     // Determina la URL de la página de detalle.
     const detailUrl = project.category === 'laboratorio' 
       ? `laboratorio-item.html?id=${project.id}`
@@ -89,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <h5 class="card-title">${project.title}</h5>
           <p class="card-description">${project.subtitle}</p>
           <div class="tags">
-            ${tagsHTML}
+            ${createTagsHTML(project.tags)}
           </div>
         </div>
       </a>
@@ -155,9 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('project-title-header').textContent = project.title;
     document.getElementById('project-subtitle-header').textContent = project.subtitle;
 
-    // Generar HTML para la lista de procesos
     const processHTML = project.detailPage.process.map(item => `<li>${item}</li>`).join('');
-    // Generar HTML para la galería
     const galleryHTML = project.detailPage.gallery.map(createGalleryItem).join('');
 
     // Construir el contenido principal del proyecto
@@ -178,7 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <aside class="project-sidebar">
           <div class="sidebar-widget">
             <h4>Tecnologías Utilizadas</h4>
-            <div class="tags">${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
+            <div class="tags">${createTagsHTML(project.tags)}</div>
           </div>
         </aside>
       </div>

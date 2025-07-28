@@ -12,6 +12,19 @@
   --shadow-color: rgba(0, 0, 0, 0.2);
   --tag-design-bg: #5a6268;
   --tag-python-bg: #e0a800;
+  /* Paleta de colores para etiquetas */
+  --tag-default-bg: #495057;
+  --tag-investigacion-bg: #007bff;
+  --tag-diseno-bg: #5a6268;
+  --tag-simulacion-bg: #17a2b8;
+  --tag-python-bg: #ffc107;
+  --tag-n8n-bg: #6f42c1;
+  --tag-apis-bg: #fd7e14;
+  --tag-docker-bg: #20c997;
+  --tag-mysql-bg: #e83e8c;
+  --tag-automatizacion-bg: #6610f2;
+  --tag-analisis-de-datos-bg: #216e39; /* Color con contraste accesible */
+  --tag-power-bi-bg: #f2c811;
   --tag-python-text: #000;
 
   --font-body: 'Roboto', sans-serif;
@@ -249,19 +262,28 @@ section {
   margin-bottom: 0.5rem;
   color: #fff;
   transition: transform 0.2s ease;
+  background-color: var(--tag-default-bg); /* Color por defecto para etiquetas nuevas */
 }
 .tag:hover {
   transform: translateY(-2px);
 }
-.tag-research { background-color: var(--primary-color); } /* Usa el color primario */
-.tag-design { background-color: var(--tag-design-bg); } /* Usa variable de tema */
-.tag-data { background-color: var(--accent-color); } /* Usa el color de acento */
-.tag-python { background-color: var(--tag-python-bg); color: var(--tag-python-text); } /* Usa variables de tema */
+/* Estilos de etiquetas dinámicas */
+.tag-investigacion { background-color: var(--tag-investigacion-bg); }
+.tag-diseno { background-color: var(--tag-diseno-bg); }
+.tag-simulacion { background-color: var(--tag-simulacion-bg); }
+.tag-python { background-color: var(--tag-python-bg); color: var(--tag-python-text); }
+.tag-n8n { background-color: var(--tag-n8n-bg); }
+.tag-apis { background-color: var(--tag-apis-bg); }
+.tag-docker { background-color: var(--tag-docker-bg); }
+.tag-mysql { background-color: var(--tag-mysql-bg); }
+.tag-automatizacion { background-color: var(--tag-automatizacion-bg); }
+.tag-analisis-de-datos { background-color: var(--tag-analisis-de-datos-bg); }
+.tag-power-bi { background-color: var(--tag-power-bi-bg); color: var(--tag-python-text); }
 
 /* Estilos para etiquetas de estado en el Laboratorio */
-.tag-status-progress { background-color: #007bff; } /* Azul para "En Progreso" */
-.tag-status-completed { background-color: #28a745; } /* Verde para "Completado" */
-.tag-status-paused { background-color: #ffc107; color: var(--tag-python-text); } /* Amarillo para "Pausado" */
+.tag-status-progress { background-color: #007bff; }
+.tag-status-completed { background-color: #216e39; }
+.tag-status-paused { background-color: #ffc107; color: var(--tag-python-text); }
 
 /* ===== SECCIÓN DE COMENTARIOS (GISCUS) ===== */
 .project-comments {

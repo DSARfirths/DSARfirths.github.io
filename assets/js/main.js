@@ -55,8 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const loadComponents = async () => {
     // Carga el nav y el footer en paralelo para mayor eficiencia
     await Promise.all([
-      loadHTML('_nav.html', 'main-nav-placeholder'),
-      loadHTML('_footer.html', 'main-footer-placeholder')
+      loadHTML('nav-component.html', 'main-nav-placeholder'),
+      loadHTML('footer-component.html', 'main-footer-placeholder')
     ]);
     
     // Una vez que el nav se ha cargado, inicializamos su JS

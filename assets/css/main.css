@@ -1,25 +1,6 @@
 /* ===== VARIABLES Y ESTILOS BASE ===== */
 :root {
-  /* Tema Claro */
-  --bg-color: #F8F9FA;
-  --bg-secondary: #FFFFFF;
-  --text-color: #212529;
-  --text-muted: #6c757d;
-  --primary-color: #6F42C1; /* Morado elegante */
-  --primary-hover: #5a359a;
-  --accent-color: #D63384; /* Rosa vibrante */
-  --border-color: #dee2e6;
-  --shadow-color: rgba(0, 0, 0, 0.08);
-  --tag-design-bg: #6c757d;
-  --tag-python-bg: #ffc107;
-  --tag-python-text: #000;
-
-  --font-body: 'Roboto', sans-serif;
-  --font-heading: 'Playfair Display', serif;
-}
-
-[data-theme="dark"] {
-  /* Tema Oscuro */
+  /* Tema Oscuro por defecto */
   --bg-color: #121212;
   --bg-secondary: #1A1A1D;
   --text-color: #EFEFEF;
@@ -32,6 +13,9 @@
   --tag-design-bg: #5a6268;
   --tag-python-bg: #e0a800;
   --tag-python-text: #000;
+
+  --font-body: 'Roboto', sans-serif;
+  --font-heading: 'Playfair Display', serif;
 }
 
 * {
@@ -45,10 +29,9 @@ body {
   color: var(--text-color);
   font-family: var(--font-body);
   line-height: 1.6;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 600;
   color: var(--text-color);
@@ -161,44 +144,6 @@ section {
 }
 
 .nav-toggler { display: none; } /* Oculto en desktop */
-
-/* ===== SWITCH MODO OSCURO ===== */
-.theme-switch {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-}
-.theme-switch .switch-label {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-}
-.theme-switch input { display: none; }
-.slider {
-  position: relative;
-  width: 40px;
-  height: 20px;
-  background-color: #ccc;
-  border-radius: 20px;
-  transition: 0.3s;
-}
-.slider::before {
-  content: '';
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background-color: white;
-  top: 2px;
-  left: 2px;
-  transition: 0.3s;
-}
-input:checked + .slider {
-  background-color: var(--primary-color);
-}
-input:checked + .slider::before {
-  transform: translateX(20px);
-}
 
 
 /* ===== HERO SECTION ===== */
@@ -418,17 +363,54 @@ input:checked + .slider::before {
   color: var(--text-muted);
 }
 
-/* ===== SECCIÓN "MI HISTORIA" (VER MÁS) ===== */
-.long-text-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s ease-in-out;
+/* ===== SECCIÓN PERFIL PROFESIONAL (PILARES) ===== */
+.pillars-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
 }
-.long-text.show-more .long-text-content {
-  max-height: 500px; /* Un valor suficientemente grande para que quepa el texto */
+
+.pillar-card {
+    background-color: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
-#toggleText {
-  margin-top: 1rem;
+
+.pillar-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px var(--shadow-color);
+    border-color: var(--primary-color);
+}
+
+.pillar-icon {
+    margin: 0 auto 1.5rem auto;
+    background-color: color-mix(in srgb, var(--primary-color) 15%, transparent);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pillar-icon svg {
+    width: 30px;
+    height: 30px;
+    fill: var(--primary-color);
+}
+
+.pillar-card h4 {
+    color: var(--text-color);
+    margin-bottom: 0.75rem;
+}
+
+.pillar-card p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
 }
 
 /* ===== SECCIÓN DE TESTIMONIOS ===== */
@@ -567,13 +549,10 @@ select.form-input {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%236c757d' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23adb5bd' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 16px 12px;
-}
-[data-theme="dark"] select.form-input {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23adb5bd' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
 }
 
 .alert {
@@ -848,8 +827,11 @@ select.form-input {
 
 .skills-logo-carousel {
     width: 100%;
-    height: 60px; /* Altura fija para el contenedor del carrusel */
+    height: 80px; /* Aumentamos la altura para los iconos */
     overflow: hidden; /* Oculta cualquier desbordamiento */
+    /* Efecto para difuminar los bordes y mejorar la sensación de bucle infinito */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
 }
 
 .skills-logo-carousel .swiper-wrapper {
@@ -860,18 +842,39 @@ select.form-input {
 }
 
 .skills-logo-carousel .swiper-slide {
-    width: auto; /* El ancho se adapta al contenido */
+    width: auto;
     height: auto;
-    padding: 0.5rem 1.25rem;
+    padding: 0.75rem 1.5rem;
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
-    border-radius: 6px;
+    border-radius: 8px;
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    /* Flexbox para alinear icono y texto */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.skills-logo-carousel .swiper-slide i {
+    font-size: 2.2rem; /* Tamaño del icono */
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+}
+
+.skills-logo-carousel .swiper-slide svg {
+    width: 35px; /* Tamaño unificado para SVGs */
+    height: 35px;
+    fill: var(--primary-color);
+    transition: fill 0.3s ease;
+}
+
+.skills-logo-carousel .swiper-slide span {
     font-size: 0.9rem;
     font-weight: 500;
-    color: var(--text-color);
-    text-align: center;
     white-space: nowrap; /* Evita que el texto se parta en dos líneas */
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .skills-logo-carousel .swiper-slide:hover {
@@ -879,4 +882,38 @@ select.form-input {
     color: var(--bg-secondary);
     border-color: var(--primary-color);
     cursor: default; /* Opcional: cambia el cursor ya que no son enlaces */
+}
+
+.skills-logo-carousel .swiper-slide:hover i {
+    color: var(--bg-secondary);
+}
+
+.skills-logo-carousel .swiper-slide:hover svg {
+    fill: var(--bg-secondary);
+}
+
+/* ===== PÁGINA DE DETALLE DE EXPERIENCIA ===== */
+.achievements-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 1.5rem;
+}
+
+.achievements-list li {
+    background-color: var(--bg-color);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--accent-color);
+    border-radius: 0 8px 8px 0;
+    transition: background-color 0.3s ease;
+}
+
+.achievements-list li:hover {
+    background-color: var(--bg-secondary);
+}
+
+.achievements-list li strong {
+    display: block;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
 }

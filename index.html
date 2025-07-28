@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="dark">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,36 +7,14 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<nav class="main-nav">
-    <div class="container nav-container">
-        <a class="nav-logo" href="#">
-            <div class="dsar-logo">DSAR</div>
-        </a>
-
-        <div class="nav-links" id="mainNavLinks">
-            <ul>
-                <li><a href="#" class="active">Inicio</a></li>
-                <li><a href="proyectos.html">Proyectos</a></li>
-                <li><a href="laboratorio.html">Laboratorio</a></li>
-                <li><a href="sobre-diego.html">Sobre Diego</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-        </div>
-        
-        <div class="nav-controls">
-            <button class="nav-toggler" id="navToggler" aria-label="Mostrar menú" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </div>
-</nav>
+<nav class="main-nav" id="main-nav-placeholder"></nav>
 
 <header class="hero-section">
     <div class="container hero-content">
@@ -60,17 +38,32 @@
 
 <section id="historia" class="container content-section animate-on-scroll">
     <h2>Perfil Profesional</h2>
-    <div class="long-text">
-        <p>Soy un Ingeniero Industrial y desarrollador de tecnología que se especializa en convertir ideas complejas en soluciones funcionales y en optimizar procesos de negocio. Mi trabajo se centra en ser el puente entre la estrategia y la ejecución técnica.</p>
-        <p>Para lograrlo, me apoyo en tres pilares fundamentales:</p>
-        <div class="long-text-content">
-            <p>1. Análisis de Datos y Business Intelligence: Utilizo herramientas como Python, SQL y Power BI para transformar datos crudos en insights claros que permiten tomar decisiones informadas y estratégicas.</p>
-            <p>2. Optimización y Automatización de Procesos: Mediante la simulación con FlexSim y la implementación de flujos de trabajo con herramientas como n8n, rediseño operaciones para aumentar la eficiencia, reducir costos y eliminar cuellos de botella.</p>
-            <p>3. Diseño y Prototipado: Con experiencia en SolidWorks y diseño CAD, creo prototipos funcionales que permiten validar ideas antes de su implementación completa, asegurando que cada proyecto se alinee con las necesidades del cliente.</p> 
-            <p>Mi perfil híbrido me permite no solo entender el "qué" técnico, sino también el "porqué" del negocio, asegurando que cada solución esté directamente alineada con los objetivos de mis clientes.</p>
+    <p class="lead-text text-center" style="max-width: 800px; margin: 0 auto 2.5rem auto;">
+        Soy un Ingeniero Industrial y desarrollador de tecnología que se especializa en convertir ideas complejas en soluciones funcionales, optimizar procesos y ser el puente entre la estrategia y la ejecución técnica.
+    </p>
+    <div class="pillars-container">
+        <div class="pillar-card">
+            <div class="pillar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+            </div>
+            <h4>Análisis y Business Intelligence</h4>
+            <p>Transformo datos crudos en insights claros con Python, SQL y Power BI para la toma de decisiones estratégicas.</p>
+        </div>
+        <div class="pillar-card">
+            <div class="pillar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg>
+            </div>
+            <h4>Optimización y Automatización</h4>
+            <p>Rediseño operaciones para aumentar la eficiencia y reducir costos mediante simulación (FlexSim) y automatización (n8n).</p>
+        </div>
+        <div class="pillar-card">
+            <div class="pillar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z"/></svg>
+            </div>
+            <h4>Diseño y Prototipado</h4>
+            <p>Creo prototipos funcionales con SolidWorks y diseño CAD para validar ideas y asegurar que se alineen a las necesidades del cliente.</p>
         </div>
     </div>
-    <button id="toggleText" class="custom-button button-outline">Ver más</button>
 </section>
 
 <section id="habilidades" class="container content-section animate-on-scroll">
@@ -80,15 +73,38 @@
     <h3 class="skills-subtitle">Habilidades Técnicas</h3>
     <div class="swiper skills-logo-carousel" id="technical-skills-carousel">
         <div class="swiper-wrapper">
-            <div class="swiper-slide">Python</div>
-            <div class="swiper-slide">Pandas & Scrapy</div>
-            <div class="swiper-slide">SQL (MySQL)</div>
-            <div class="swiper-slide">Power BI</div>
-            <div class="swiper-slide">Excel (Avanzado)</div>
-            <div class="swiper-slide">SolidWorks</div>
-            <div class="swiper-slide">FlexSim</div>
-            <div class="swiper-slide">AutoCAD</div>
-            <div class="swiper-slide">n8n</div>
+            <div class="swiper-slide">
+                <i class="devicon-python-plain"></i>
+                <span>Python</span>
+            </div>
+            <div class="swiper-slide">
+                <i class="devicon-pandas-original"></i>
+                <span>Pandas</span>
+            </div>
+            <div class="swiper-slide">
+                <i class="devicon-mysql-plain-wordmark"></i>
+                <span>SQL</span>
+            </div>
+            <div class="swiper-slide">
+                <!-- Power BI no tiene un icono oficial en Devicon -->
+                <span>Power BI</span>
+            </div>
+            <div class="swiper-slide">
+                <i class="devicon-msexcel-plain"></i>
+                <span>Excel</span>
+            </div>
+            <div class="swiper-slide">
+                <i class="devicon-solidworks-plain"></i>
+                <span>SolidWorks</span>
+            </div>
+            <div class="swiper-slide">
+                <i class="devicon-autocad-plain"></i>
+                <span>AutoCAD</span>
+            </div>
+            <div class="swiper-slide">
+                <!-- n8n no tiene un icono oficial en Devicon -->
+                <span>n8n</span>
+            </div>
         </div>
     </div>
 
@@ -96,13 +112,34 @@
     <h3 class="skills-subtitle">Habilidades Blandas</h3>
     <div class="swiper skills-logo-carousel" id="soft-skills-carousel">
         <div class="swiper-wrapper">
-            <div class="swiper-slide">Comunicación Técnica</div>
-            <div class="swiper-slide">Gestión de Proyectos</div>
-            <div class="swiper-slide">Pensamiento Estratégico</div>
-            <div class="swiper-slide">Resolución de Problemas</div>
-            <div class="swiper-slide">Decisiones con Datos</div>
-            <div class="swiper-slide">Trabajo en Equipo</div>
-            <div class="swiper-slide">Adaptabilidad</div>
+            <div class="swiper-slide">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18zM18 14H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+                <span>Comunicación</span>
+            </div>
+            <div class="swiper-slide">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/></svg>
+                <span>Gestión</span>
+            </div>
+            <div class="swiper-slide">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                <span>Estrategia</span>
+            </div>
+            <div class="swiper-slide">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                <span>Resolución</span>
+            </div>
+            <div class="swiper-slide">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                <span>Análisis</span>
+            </div>
+            <div class="swiper-slide">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                <span>Equipo</span>
+            </div>
+            <div class="swiper-slide">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg>
+                <span>Adaptabilidad</span>
+            </div>
         </div>
     </div>
 </section>
@@ -129,24 +166,31 @@
         <h2>Experiencia</h2>
         <ul class="experience-list">
             <li>
-                <a href="#" aria-label="Ver experiencia como Investigador en Ingeniería"> <!-- TODO: Crear y enlazar página de experiencia -->
-                    <small class="timeline-date">2022 - PRESENTE</small>
-                    <h5>Investigador en Ingeniería</h5>
-                    <p>Liderando proyectos, análisis de datos y publicaciones bajo normas APA e ISO.</p>
+                <a href="experiencia-analista-datos.html" aria-label="Ver experiencia como Analista de Datos y Automatización">
+                    <small class="timeline-date">Agosto 2023 - Actualmente</small>
+                    <h5>Analista de Datos y Automatización (Freelance)</h5>
+                    <p>Convierto datos crudos en decisiones de negocio a través de Python y SQL, y diseño flujos de trabajo automatizados para maximizar la eficiencia operativa.</p>
                 </a>
             </li>
             <li>
-                <a href="#" aria-label="Ver experiencia como Diseñador Industrial"> <!-- TODO: Crear y enlazar página de experiencia -->
-                    <small class="timeline-date">2020 - 2022</small>
-                    <h5>Diseñador Industrial</h5>
-                    <p>Modelado CAD y creación de prototipos en SolidWorks.</p>
+                <a href="experiencia-ingeniero-diseno.html" aria-label="Ver experiencia como Ingeniero de Diseño y Prototipado">
+                    <small class="timeline-date">Agosto 2023 - Actualmente</small>
+                    <h5>Ingeniero de Diseño y Prototipado (Freelance)</h5>
+                    <p>Especializado en llevar ideas desde el concepto inicial hasta prototipos funcionales, utilizando diseño 3D avanzado y análisis CAE en SolidWorks.</p>
                 </a>
             </li>
             <li>
-                <a href="#" aria-label="Ver experiencia como Programador"> <!-- TODO: Crear y enlazar página de experiencia -->
-                    <small class="timeline-date">2019 - 2020</small>
-                    <h5>Programador</h5>
-                    <p>Automatización y web; portafolio en GitHub.</p>
+                <a href="experiencia-consultor-procesos.html" aria-label="Ver experiencia como Consultor de Procesos y Tesis de Ingeniería">
+                    <small class="timeline-date">Agosto 2023 - Actualmente</small>
+                    <h5>Consultor de Procesos y Tesis de Ingeniería</h5>
+                    <p>Aplico mi formación como Ingeniero Industrial para optimizar procesos mediante simulación (FlexSim) y asesoro a futuros ingenieros en el desarrollo de sus tesis.</p>
+                </a>
+            </li>
+            <li>
+                <a href="experiencia-encargado-tienda.html" aria-label="Ver experiencia como Encargado de Tienda">
+                    <small class="timeline-date">Enero 2023 - Enero 2024</small>
+                    <h5>Encargado de Tienda</h5>
+                    <p>Lideré la gestión operativa y comercial de la tienda, aplicando análisis de datos de ventas para lograr un crecimiento del 20% y optimizar el inventario.</p>
                 </a>
             </li>
         </ul>
@@ -199,11 +243,6 @@
 <section id="contacto" class="contact-section animate-on-scroll">
     <div class="container contact-container">
         <h2 class="text-center">¿Tienes un proyecto en mente?</h2>
-        <!-- 
-            IMPORTANTE: Para que el formulario funcione, reemplaza la URL de abajo.
-            1. Ve a https://formspree.io y crea un nuevo formulario para "dsarfirths@gmail.com".
-            2. Copia la URL que te den y pégala en el atributo 'action' de abajo.
-        -->
         <form id="contact-form" action="https://formspree.io/f/xvgqawdz" method="POST">
             <div class="form-group">
                 <label for="nombre" class="form-label">Nombre</label>
@@ -250,24 +289,7 @@
     </div>
 </section>
 
-<footer class="main-footer">
-    <div class="container footer-container">
-        <div class="copyright-text">
-            &copy; 2024 Diego Abad Ramos. Todos los derechos reservados.
-        </div>
-        <div class="social-links">
-            <a href="https://www.linkedin.com/in/diegoabadramos/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>
-            </a>
-            <a href="https://github.com/DSARfirths" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.043c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-            </a>
-            <a href="mailto:dsarfirths@gmail.com" aria-label="Enviar correo electrónico">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
-            </a>
-        </div>
-    </div>
-</footer>
+<footer class="main-footer" id="main-footer-placeholder"></footer>
 
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="assets/js/main.js"></script>

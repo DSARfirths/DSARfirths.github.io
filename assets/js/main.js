@@ -1,14 +1,70 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // ===== LÓGICA PARA EL MENÚ MÓVIL (HAMBURGUESA) =====
-  const navToggler = document.getElementById("navToggler");
-  const navLinks = document.getElementById("mainNavLinks");
+  // ===== CARGA DE COMPONENTES (NAV & FOOTER) Y SU LÓGICA =====
 
-  navToggler.addEventListener("click", () => {
-    navLinks.classList.toggle("is-open");
-    navToggler.classList.toggle("is-open");
-    const isExpanded = navLinks.classList.contains("is-open");
-    navToggler.setAttribute("aria-expanded", isExpanded);
-  });
+  /**
+   * Carga contenido HTML desde una URL y lo inserta en un elemento del DOM.
+   * @param {string} url - La URL del archivo HTML a cargar (ej. '_nav.html').
+   * @param {string} elementId - El ID del elemento donde se insertará el HTML.
+   */
+  const loadHTML = async (url, elementId) => {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      element.innerHTML = await response.text();
+    } catch (error) {
+      console.error(`No se pudo cargar el HTML desde ${url}:`, error);
+      element.innerHTML = `<p style="color:red; text-align:center;">Error al cargar componente.</p>`;
+    }
+  };
+
+  /**
+   * Inicializa la funcionalidad de la barra de navegación después de que se carga.
+   * Esto incluye el menú móvil y el resaltado del enlace activo.
+   */
+  const initializeNav = () => {
+    // Lógica para el menú móvil (hamburguesa)
+    const navToggler = document.getElementById("navToggler");
+    const navLinks = document.getElementById("mainNavLinks");
+
+    if (navToggler && navLinks) {
+      navToggler.addEventListener("click", () => {
+        navLinks.classList.toggle("is-open");
+        navToggler.classList.toggle("is-open");
+        const isExpanded = navLinks.classList.contains("is-open");
+        navToggler.setAttribute("aria-expanded", isExpanded);
+      });
+    }
+
+    // Lógica para el enlace activo
+    const navAnchors = document.querySelectorAll('#mainNavLinks ul a');
+    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+
+    navAnchors.forEach(link => {
+      const linkPath = link.getAttribute('href').split('#')[0];
+      if (linkPath === currentPath && !link.getAttribute('href').includes('#')) {
+        link.classList.add('active');
+      }
+    });
+  };
+
+  /**
+   * Función principal para cargar todos los componentes y luego inicializarlos.
+   */
+  const loadComponents = async () => {
+    // Carga el nav y el footer en paralelo para mayor eficiencia
+    await Promise.all([
+      loadHTML('_nav.html', 'main-nav-placeholder'),
+      loadHTML('_footer.html', 'main-footer-placeholder')
+    ]);
+    
+    // Una vez que el nav se ha cargado, inicializamos su JS
+    initializeNav();
+  };
+
+  // Inicia la carga de componentes
+  loadComponents();
 
   // ===== Formulario sin recarga (Sin cambios) =====
   const form = document.getElementById("contact-form");
@@ -56,22 +112,6 @@ document.addEventListener("DOMContentLoaded", () => {
     el.classList.add("opacity-0", "transition");
     observer.observe(el);
   });
-
-  // ===== LÓGICA PARA "VER MÁS / VER MENOS" EN SECCIÓN "MI HISTORIA" =====
-  const toggleTextButton = document.getElementById('toggleText');
-  const longTextContainer = document.querySelector('.long-text');
-
-  if (toggleTextButton && longTextContainer) {
-    toggleTextButton.addEventListener('click', () => {
-      longTextContainer.classList.toggle('show-more');
-      
-      if (longTextContainer.classList.contains('show-more')) {
-        toggleTextButton.textContent = 'Ver menos';
-      } else {
-        toggleTextButton.textContent = 'Ver más';
-      }
-    });
-  }
 
   // ===== LÓGICA PARA FILTRAR PROYECTOS =====
   const searchInput = document.getElementById('projectSearch');
@@ -124,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loop: true,
     slidesPerView: 'auto',
     spaceBetween: 16,
-    speed: 5000, // Duración de la transición para un movimiento suave
+    speed: 3000, // Reducido de 5000 para mayor velocidad
     autoplay: {
         delay: 0, // Sin pausa entre transiciones
         disableOnInteraction: false,

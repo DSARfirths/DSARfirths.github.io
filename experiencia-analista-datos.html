@@ -33,29 +33,10 @@
         </ul>
     </div>
 
-    <section class="related-projects-section">
+    <section class="related-projects-section" data-related-ids="energia-solar, automatizador-n8n">
         <h2 class="text-center" style="margin-bottom: 2rem;">Proyectos Relacionados</h2>
-        <div class="projects-page-grid">
-            <a href="proyecto-energia-solar.html" class="project-card" data-tags="investigación,diseño,datos,python">
-                <img src="https://via.placeholder.com/400x200.png/9B5DE5/EFEFEF?text=Proyecto+1" class="card-image" alt="Panel solar instalado" loading="lazy">
-                <div class="card-content">
-                    <h5 class="card-title">Proyecto de Energía Solar</h5>
-                    <div class="tags">
-                        <span class="tag tag-research">Investigación</span>
-                        <span class="tag tag-data">Análisis de datos</span>
-                    </div>
-                </div>
-            </a>
-            <a href="proyecto-lab-ejemplo.html" class="project-card">
-                <img src="https://via.placeholder.com/400x200.png/457B9D/EFEFEF?text=Lab+Entry+1" class="card-image" alt="Proyecto experimental" loading="lazy">
-                <div class="card-content">
-                    <h5 class="card-title">Automatizador de Tareas con n8n</h5>
-                    <p class="card-description">Explorando la creación de flujos de trabajo automatizados para conectar APIs y servicios sin código.</p>
-                    <div class="tags">
-                        <span class="tag tag-status-progress">En Progreso</span>
-                    </div>
-                </div>
-            </a>
+        <div class="projects-page-grid" id="related-projects-container">
+            <!-- Los proyectos relacionados se insertarán aquí dinámicamente -->
         </div>
     </section>
 
@@ -68,6 +49,7 @@
 
 <footer class="main-footer" id="main-footer-placeholder"></footer>
 
+<script src="assets/js/projects-data.js"></script>
 <script src="assets/js/main.js"></script>
 
 </body>

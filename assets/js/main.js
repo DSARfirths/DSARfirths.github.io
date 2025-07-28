@@ -66,6 +66,158 @@ document.addEventListener("DOMContentLoaded", () => {
   // Inicia la carga de componentes
   loadComponents();
 
+  // ===== LÓGICA PARA RENDERIZAR PROYECTOS DINÁMICAMENTE =====
+
+  /**
+   * Crea el HTML para una única tarjeta de proyecto a partir de un objeto de proyecto.
+   * @param {object} project - El objeto del proyecto desde projects-data.js.
+   * @returns {string} - El string HTML de la tarjeta del proyecto.
+   */
+  const createProjectCard = (project) => {
+    // Genera el HTML para las etiquetas dinámicamente
+    const tagsHTML = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+
+    // Determina la URL de la página de detalle.
+    const detailUrl = project.category === 'laboratorio' 
+      ? `laboratorio-item.html?id=${project.id}`
+      : `proyecto.html?id=${project.id}`;
+
+    return `
+      <a href="${detailUrl}" class="project-card" data-tags="${project.tags.join(',')}" aria-label="Ver detalles del proyecto ${project.title}">
+        <img src="${project.cardImage}" class="card-image" alt="Imagen del proyecto ${project.title}" loading="lazy">
+        <div class="card-content">
+          <h5 class="card-title">${project.title}</h5>
+          <p class="card-description">${project.subtitle}</p>
+          <div class="tags">
+            ${tagsHTML}
+          </div>
+        </div>
+      </a>
+    `;
+  };
+
+  /**
+   * Renderiza una lista de proyectos en un contenedor específico.
+   * @param {HTMLElement} container - El elemento del DOM donde se insertarán las tarjetas.
+   * @param {Array<object>} projects - La lista de proyectos a renderizar.
+   */
+  const renderProjects = (container, projects) => {
+    if (!container) return;
+
+    if (projects.length === 0) {
+      container.innerHTML = '<p>No se encontraron proyectos que coincidan con la búsqueda.</p>';
+      return;
+    }
+
+    // Genera el HTML para todas las tarjetas y lo inserta de una sola vez
+    container.innerHTML = projects.map(createProjectCard).join('');
+  };
+
+  /**
+   * Crea el HTML para un item de la galería con diseño alternado.
+   * @param {object} item - El objeto de la galería {image, caption}.
+   * @param {number} index - El índice del item en el array.
+   * @returns {string} - El string HTML del item de la galería.
+   */
+  const createGalleryItem = (item, index) => {
+    const isReversed = index % 2 !== 0; // Alterna para cada item impar
+    return `
+      <div class="gallery-item ${isReversed ? 'is-reversed' : ''}">
+        <div class="gallery-image-container">
+          <img src="${item.image}" alt="Imagen de la galería del proyecto" loading="lazy">
+        </div>
+        <div class="gallery-caption-container">
+          <p>${item.caption}</p>
+        </div>
+      </div>
+    `;
+  };
+
+  /**
+   * Renderiza el contenido de una página de detalle de proyecto.
+   */
+  const renderProjectDetail = () => {
+    const params = new URLSearchParams(window.location.search);
+    const projectId = params.get('id');
+    const container = document.getElementById('project-content-container');
+
+    if (!projectId || !container) return;
+
+    const project = projectsData.find(p => p.id === projectId);
+
+    if (!project) {
+      container.innerHTML = '<p class="text-center">Proyecto no encontrado. Por favor, vuelve a la lista de proyectos.</p>';
+      return;
+    }
+
+    // Rellenar el título de la página y la cabecera
+    document.getElementById('page-title').textContent = `${project.title} – Diego Abad Ramos`;
+    document.getElementById('project-title-header').textContent = project.title;
+    document.getElementById('project-subtitle-header').textContent = project.subtitle;
+
+    // Generar HTML para la lista de procesos
+    const processHTML = project.detailPage.process.map(item => `<li>${item}</li>`).join('');
+    // Generar HTML para la galería
+    const galleryHTML = project.detailPage.gallery.map(createGalleryItem).join('');
+
+    // Construir el contenido principal del proyecto
+    const projectContentHTML = `
+      <div class="project-detail-grid">
+        <div class="project-main-content">
+          <img src="${project.detailPage.mainImage}" alt="Imagen principal del proyecto ${project.title}" class="project-main-image">
+          
+          <h2>El Problema</h2>
+          <p>${project.detailPage.problem}</p>
+          
+          <h2>Mi Proceso</h2>
+          <ol class="process-list">${processHTML}</ol>
+          
+          <h2>Resultados Clave</h2>
+          <p>${project.detailPage.results}</p>
+        </div>
+        <aside class="project-sidebar">
+          <div class="sidebar-widget">
+            <h4>Tecnologías Utilizadas</h4>
+            <div class="tags">${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
+          </div>
+        </aside>
+      </div>
+      
+      ${galleryHTML ? `
+        <section class="project-gallery">
+          <h2 class="text-center">Galería del Proyecto</h2>
+          ${galleryHTML}
+        </section>
+      ` : ''}
+    `;
+
+    container.innerHTML = projectContentHTML;
+
+    // Cargar Giscus si estamos en la página de laboratorio
+    if (document.body.id === 'page-lab-detail') {
+      const giscusContainer = document.getElementById('giscus-container');
+      if (giscusContainer) {
+        const script = document.createElement('script');
+        script.src = "https://giscus.app/client.js";
+        script.setAttribute("data-repo", "DSARfirths/DSARfirths.github.io");
+        script.setAttribute("data-repo-id", "R_kgDOO4XWrw");
+        script.setAttribute("data-category", "General");
+        script.setAttribute("data-category-id", "DIC_kwDOO4XWr84CtdH6");
+        script.setAttribute("data-mapping", "title");
+        script.setAttribute("data-strict", "0");
+        script.setAttribute("data-reactions-enabled", "1");
+        script.setAttribute("data-emit-metadata", "0");
+        script.setAttribute("data-input-position", "top");
+        script.setAttribute("data-theme", "preferred_color_scheme");
+        script.setAttribute("data-lang", "es");
+        script.setAttribute("crossorigin", "anonymous");
+        script.async = true;
+        giscusContainer.appendChild(script);
+      }
+    }
+  };
+
+
   // ===== Formulario sin recarga (Sin cambios) =====
   const form = document.getElementById("contact-form");
   if (form) {
@@ -113,27 +265,62 @@ document.addEventListener("DOMContentLoaded", () => {
     observer.observe(el);
   });
 
-  // ===== LÓGICA PARA FILTRAR PROYECTOS =====
+  // ===== LÓGICA PARA RENDERIZAR Y FILTRAR PROYECTOS =====
   const searchInput = document.getElementById('projectSearch');
   const projectsGrid = document.getElementById('projectsGrid');
+  const announcer = document.getElementById('searchResultsAnnouncer');
+  const homeProjectsContainer = document.getElementById('home-projects-container');
 
-  if (searchInput && projectsGrid) {
-    const projectCards = Array.from(projectsGrid.getElementsByClassName('project-card'));
+  // Asegurarnos de que projectsData está disponible (debe cargarse antes que main.js)
+  if (typeof projectsData !== 'undefined') {
+    // Renderizar proyectos en la página de Proyectos
+    if (document.body.id === 'page-proyectos' && projectsGrid) {
+      const allProjects = projectsData.filter(p => p.category === 'proyecto');
+      renderProjects(projectsGrid, allProjects);
 
-    searchInput.addEventListener('input', () => {
-      const searchTerm = searchInput.value.toLowerCase().trim();
+      // Activar el buscador solo en esta página
+      if (searchInput && announcer) {
+        searchInput.addEventListener('input', () => {
+          const searchTerm = searchInput.value.toLowerCase().trim();
+          const filteredProjects = allProjects.filter(p => 
+            p.title.toLowerCase().includes(searchTerm) || 
+            p.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+          );
+          renderProjects(projectsGrid, filteredProjects);
+          
+          const resultText = filteredProjects.length === 1 ? 'Se encontró 1 proyecto.' : `Se encontraron ${filteredProjects.length} proyectos.`;
+          announcer.textContent = resultText;
+        });
+      }
+    }
 
-      projectCards.forEach(card => {
-        const title = card.querySelector('.card-title').textContent.toLowerCase();
-        const tags = card.dataset.tags.toLowerCase();
+    // Renderizar proyectos en la página de Laboratorio
+    if (document.body.id === 'page-laboratorio' && projectsGrid) {
+      const labProjects = projectsData.filter(p => p.category === 'laboratorio');
+      renderProjects(projectsGrid, labProjects);
+    }
 
-        if (title.includes(searchTerm) || tags.includes(searchTerm)) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    });
+    // Renderizar proyectos destacados en la página de Inicio
+    if (homeProjectsContainer) {
+      const featuredProjects = projectsData.filter(p => p.isFeatured);
+      renderProjects(homeProjectsContainer, featuredProjects);
+    }
+
+    // Renderizar la página de detalle de un proyecto
+    if (document.body.id === 'page-project-detail' || document.body.id === 'page-lab-detail') {
+      renderProjectDetail();
+    }
+
+    // Renderizar proyectos relacionados en las páginas de experiencia
+    const relatedProjectsSection = document.querySelector('.related-projects-section');
+    if (relatedProjectsSection) {
+      const container = relatedProjectsSection.querySelector('.projects-page-grid');
+      const ids = relatedProjectsSection.dataset.relatedIds?.split(',').map(id => id.trim());
+      if (container && ids && ids.length > 0) {
+        const relatedProjects = projectsData.filter(p => ids.includes(p.id));
+        renderProjects(container, relatedProjects);
+      }
+    }
   }
 
   // ===== INICIALIZACIÓN DEL CARRUSEL DE TESTIMONIOS (SWIPER) =====

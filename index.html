@@ -144,56 +144,48 @@
     </div>
 </section>
 
-<main class="container content-section main-grid">
-    <div class="grid-column">
-        <h2>Proyectos</h2>
-        <div class="card-container">
-            <a href="proyecto-energia-solar.html" class="project-card">
-                <img src="https://via.placeholder.com/400x200.png/9B5DE5/EFEFEF?text=Proyecto+1" class="card-image" alt="Panel solar instalado" loading="lazy">
-                <div class="card-content">
-                    <h5 class="card-title">Proyecto de Energía Solar</h5>
-                    <div class="tags">
-                        <span class="tag tag-research">Investigación</span>
-                        <span class="tag tag-design">Diseño</span>
-                    </div>
-                </div>
-            </a>
-            </div>
-        <a href="proyectos.html" class="custom-button full-width" aria-label="Ver todos los proyectos">Ver todos los proyectos</a>
-    </div>
+<main class="container content-section">
+    <div class="main-grid">
+        <section class="grid-column" aria-labelledby="proyectos-heading">
+            <h2 id="proyectos-heading">Proyectos</h2>
+            <!-- El contenedor de proyectos destacados se rellenará dinámicamente -->
+            <div class="card-container" id="home-projects-container"></div>
+            <a href="proyectos.html" class="custom-button full-width" aria-label="Ver todos los proyectos">Ver todos los proyectos</a>
+        </section>
 
-    <div class="grid-column animate-on-scroll">
-        <h2>Experiencia</h2>
-        <ul class="experience-list">
-            <li>
-                <a href="experiencia-analista-datos.html" aria-label="Ver experiencia como Analista de Datos y Automatización">
-                    <small class="timeline-date">Agosto 2023 - Actualmente</small>
-                    <h5>Analista de Datos y Automatización (Freelance)</h5>
-                    <p>Convierto datos crudos en decisiones de negocio a través de Python y SQL, y diseño flujos de trabajo automatizados para maximizar la eficiencia operativa.</p>
-                </a>
-            </li>
-            <li>
-                <a href="experiencia-ingeniero-diseno.html" aria-label="Ver experiencia como Ingeniero de Diseño y Prototipado">
-                    <small class="timeline-date">Agosto 2023 - Actualmente</small>
-                    <h5>Ingeniero de Diseño y Prototipado (Freelance)</h5>
-                    <p>Especializado en llevar ideas desde el concepto inicial hasta prototipos funcionales, utilizando diseño 3D avanzado y análisis CAE en SolidWorks.</p>
-                </a>
-            </li>
-            <li>
-                <a href="experiencia-consultor-procesos.html" aria-label="Ver experiencia como Consultor de Procesos y Tesis de Ingeniería">
-                    <small class="timeline-date">Agosto 2023 - Actualmente</small>
-                    <h5>Consultor de Procesos y Tesis de Ingeniería</h5>
-                    <p>Aplico mi formación como Ingeniero Industrial para optimizar procesos mediante simulación (FlexSim) y asesoro a futuros ingenieros en el desarrollo de sus tesis.</p>
-                </a>
-            </li>
-            <li>
-                <a href="experiencia-encargado-tienda.html" aria-label="Ver experiencia como Encargado de Tienda">
-                    <small class="timeline-date">Enero 2023 - Enero 2024</small>
-                    <h5>Encargado de Tienda</h5>
-                    <p>Lideré la gestión operativa y comercial de la tienda, aplicando análisis de datos de ventas para lograr un crecimiento del 20% y optimizar el inventario.</p>
-                </a>
-            </li>
-        </ul>
+        <section class="grid-column animate-on-scroll" aria-labelledby="experiencia-heading">
+            <h2 id="experiencia-heading">Experiencia</h2>
+            <ul class="experience-list">
+                <li>
+                    <a href="experiencia-analista-datos.html" aria-label="Ver experiencia como Analista de Datos y Automatización">
+                        <small class="timeline-date">Agosto 2023 - Actualmente</small>
+                        <h5>Analista de Datos y Automatización (Freelance)</h5>
+                        <p>Convierto datos crudos en decisiones de negocio a través de Python y SQL, y diseño flujos de trabajo automatizados para maximizar la eficiencia operativa.</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="experiencia-ingeniero-diseno.html" aria-label="Ver experiencia como Ingeniero de Diseño y Prototipado">
+                        <small class="timeline-date">Agosto 2023 - Actualmente</small>
+                        <h5>Ingeniero de Diseño y Prototipado (Freelance)</h5>
+                        <p>Especializado en llevar ideas desde el concepto inicial hasta prototipos funcionales, utilizando diseño 3D avanzado y análisis CAE en SolidWorks.</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="experiencia-consultor-procesos.html" aria-label="Ver experiencia como Consultor de Procesos y Tesis de Ingeniería">
+                        <small class="timeline-date">Agosto 2023 - Actualmente</small>
+                        <h5>Consultor de Procesos y Tesis de Ingeniería</h5>
+                        <p>Aplico mi formación como Ingeniero Industrial para optimizar procesos mediante simulación (FlexSim) y asesoro a futuros ingenieros en el desarrollo de sus tesis.</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="experiencia-encargado-tienda.html" aria-label="Ver experiencia como Encargado de Tienda">
+                        <small class="timeline-date">Enero 2023 - Enero 2024</small>
+                        <h5>Encargado de Tienda</h5>
+                        <p>Lideré la gestión operativa y comercial de la tienda, aplicando análisis de datos de ventas para lograr un crecimiento del 20% y optimizar el inventario.</p>
+                    </a>
+                </li>
+            </ul>
+        </section>
     </div>
 </main>
 
@@ -292,6 +284,7 @@
 <footer class="main-footer" id="main-footer-placeholder"></footer>
 
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="assets/js/projects-data.js"></script>
 <script src="assets/js/main.js"></script>
 
 </body>

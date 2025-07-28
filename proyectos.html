@@ -10,7 +10,7 @@
     <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 </head>
-<body>
+<body id="page-proyectos">
 
 <nav class="main-nav" id="main-nav-placeholder"></nav>
 
@@ -25,41 +25,13 @@
     <div class="search-container animate-on-scroll">
         <input type="text" id="projectSearch" class="form-input search-input" placeholder="Buscar proyectos por título o tecnología...">
     </div>
+    
+    <!-- Región ARIA para anunciar resultados a lectores de pantalla -->
+    <div id="searchResultsAnnouncer" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
 
     <div id="projectsGrid" class="projects-page-grid animate-on-scroll">
-        <a href="proyecto-energia-solar.html" class="project-card" data-tags="investigación,diseño">
-            <img src="https://via.placeholder.com/400x200.png/9B5DE5/EFEFEF?text=Proyecto+1" class="card-image" alt="Panel solar instalado" loading="lazy">
-            <div class="card-content">
-                <h5 class="card-title">Proyecto de Energía Solar</h5>
-                <div class="tags">
-                    <span class="tag tag-research">Investigación</span>
-                    <span class="tag tag-design">Diseño</span>
-                </div>
-            </div>
-        </a>
-
-        <a href="#" class="project-card" data-tags="análisis de datos,python"> <!-- TODO: Crear y enlazar página de proyecto -->
-            <img src="https://via.placeholder.com/400x200.png/F72585/1A1A1D?text=Proyecto+2" class="card-image" alt="Dashboard de datos" loading="lazy">
-            <div class="card-content">
-                <h5 class="card-title">Dashboard de Análisis</h5>
-                <div class="tags">
-                    <span class="tag tag-data">Análisis de datos</span>
-                    <span class="tag tag-python">Python</span>
-                </div>
-            </div>
-        </a>
-
-        <a href="#" class="project-card" data-tags="diseño"> <!-- TODO: Crear y enlazar página de proyecto -->
-            <img src="https://via.placeholder.com/400x200.png/6c757d/FFFFFF?text=Proyecto+3" class="card-image" alt="Diseño de producto" loading="lazy">
-            <div class="card-content">
-                <h5 class="card-title">Diseño de Producto 3D</h5>
-                <div class="tags">
-                    <span class="tag tag-design">Diseño</span>
-                </div>
-            </div>
-        </a>
-        
-        </div>
+        <!-- Las tarjetas de proyecto se insertarán aquí dinámicamente -->
+    </div>
 
     <div class="text-center animate-on-scroll" style="margin-top: 3rem;">
         <a href="index.html" class="custom-button button-outline">
@@ -70,6 +42,7 @@
 
 <footer class="main-footer" id="main-footer-placeholder"></footer>
 
+<script src="assets/js/projects-data.js"></script>
 <script src="assets/js/main.js"></script>
 </body>
 </html>

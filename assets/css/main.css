@@ -301,6 +301,17 @@ input:checked + .slider::before {
 .tag-data { background-color: var(--accent-color); } /* Usa el color de acento */
 .tag-python { background-color: var(--tag-python-bg); color: var(--tag-python-text); } /* Usa variables de tema */
 
+/* Estilos para etiquetas de estado en el Laboratorio */
+.tag-status-progress { background-color: #007bff; } /* Azul para "En Progreso" */
+.tag-status-completed { background-color: #28a745; } /* Verde para "Completado" */
+.tag-status-paused { background-color: #ffc107; color: var(--tag-python-text); } /* Amarillo para "Pausado" */
+
+/* ===== SECCIÓN DE COMENTARIOS (GISCUS) ===== */
+.project-comments {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
 /* ===== BOTONES ===== */
 .custom-button {
   display: inline-block;
@@ -497,43 +508,6 @@ input:checked + .slider::before {
   font-size: 2rem; /* Hacer las flechas más grandes */
 }
 
-
-/* ===== SECCIÓN DE HABILIDADES (SKILLS) ===== */
-.skills-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.skills-main-subtitle {
-    text-align: center;
-    color: var(--text-muted);
-    margin-top: -0.5rem;
-    margin-bottom: 2rem;
-    font-family: var(--font-body);
-    font-weight: 400;
-}
-
-.skill-category {
-  background-color: var(--bg-secondary);
-  padding: 2rem;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 4px 8px var(--shadow-color);
-}
-
-.skill-category h4 {
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 0.75rem;
-}
-
-.skill-category ul { list-style: none; }
-.skill-category li { padding: 0.5rem 0 0.5rem 1.5rem; position: relative; }
-.skill-category li::before { content: '✓'; position: absolute; left: 0; color: var(--primary-color); font-weight: bold; }
-
 /* ===== FORMULARIO DE CONTACTO ===== */
 .contact-section {
   background-color: var(--bg-secondary);
@@ -668,13 +642,29 @@ select.form-input {
     height: 2px;
     background: var(--text-color);
     border-radius: 10px;
-    transition: all 0.3s linear;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     position: relative;
-    transform-origin: 1px;
+    transform-origin: center;
+  }
+
+  /* Animación para transformar la hamburguesa en una X */
+  .nav-toggler.is-open span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .nav-toggler.is-open span:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-toggler.is-open span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
   }
 
   .nav-links {
-    display: none; /* Oculto por defecto */
+    /* Estado inicial para la animación (oculto) */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+
     position: absolute;
     top: 100%;
     left: 0;
@@ -683,15 +673,15 @@ select.form-input {
     border-top: 1px solid var(--border-color);
   }
   .nav-links.is-open {
-    display: block; /* Se muestra con JS */
+    /* Estado final (visible) */
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
   }
   .nav-links ul {
     flex-direction: column;
     align-items: center;
     padding: 1rem 0;
-  }
-  .theme-switch .switch-label {
-      display: none; /* Ocultar texto en móvil */
   }
 }
 
@@ -759,6 +749,17 @@ select.form-input {
   display: inline-block;
 }
 
+.process-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1.5rem;
+}
+.process-list li {
+  padding-left: 2rem;
+  position: relative;
+  margin-bottom: 1rem;
+}
+.process-list li::before { content: counter(list-item) "."; counter-increment: list-item; position: absolute; left: 0; font-weight: bold; color: var(--primary-color); }
 .project-main-content h3 {
   margin-top: 1.5rem;
   color: var(--primary-color);
@@ -829,4 +830,53 @@ select.form-input {
   .project-detail-grid {
     grid-template-columns: 1fr;
   }
+  /* Desactivar efecto parallax en móvil para mejorar rendimiento */
+  .hero-section {
+    background-attachment: scroll;
+  }
+}
+
+/* ===== SKILLS CAROUSELS (LOGO/BRAND STYLE) ===== */
+.skills-subtitle {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-weight: 500;
+}
+
+.skills-logo-carousel {
+    width: 100%;
+    height: 60px; /* Altura fija para el contenedor del carrusel */
+    overflow: hidden; /* Oculta cualquier desbordamiento */
+}
+
+.skills-logo-carousel .swiper-wrapper {
+    /* Alineación vertical para las cajas */
+    align-items: center;
+    /* Esto es clave para la animación de bucle continuo con autoplay delay 0 */
+    transition-timing-function: linear !important;
+}
+
+.skills-logo-carousel .swiper-slide {
+    width: auto; /* El ancho se adapta al contenido */
+    height: auto;
+    padding: 0.5rem 1.25rem;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-color);
+    text-align: center;
+    white-space: nowrap; /* Evita que el texto se parta en dos líneas */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.skills-logo-carousel .swiper-slide:hover {
+    background-color: var(--primary-color);
+    color: var(--bg-secondary);
+    border-color: var(--primary-color);
+    cursor: default; /* Opcional: cambia el cursor ya que no son enlaces */
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="light">
+<html lang="es" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,19 +20,15 @@
 
         <div class="nav-links" id="mainNavLinks">
             <ul>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#proyectos">Proyectos</a></li>
-                <li><a href="#historia">Sobre Diego</a></li>
+                <li><a href="#" class="active">Inicio</a></li>
+                <li><a href="proyectos.html">Proyectos</a></li>
+                <li><a href="laboratorio.html">Laboratorio</a></li>
+                <li><a href="sobre-diego.html">Sobre Diego</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
         </div>
         
         <div class="nav-controls">
-            <label class="theme-switch" for="themeToggle">
-                <input type="checkbox" id="themeToggle" aria-label="Activar modo oscuro">
-                <span class="slider"></span>
-                <span class="switch-label">Modo oscuro</span>
-            </label>
             <button class="nav-toggler" id="navToggler" aria-label="Mostrar menú" aria-expanded="false">
                 <span></span>
                 <span></span>
@@ -66,7 +62,7 @@
     <h2>Perfil Profesional</h2>
     <div class="long-text">
         <p>Soy un Ingeniero Industrial y desarrollador de tecnología que se especializa en convertir ideas complejas en soluciones funcionales y en optimizar procesos de negocio. Mi trabajo se centra en ser el puente entre la estrategia y la ejecución técnica.</p>
-        <p>Para lograrlo, me apoyo en tres pilares fundamentales:</p></p>
+        <p>Para lograrlo, me apoyo en tres pilares fundamentales:</p>
         <div class="long-text-content">
             <p>1. Análisis de Datos y Business Intelligence: Utilizo herramientas como Python, SQL y Power BI para transformar datos crudos en insights claros que permiten tomar decisiones informadas y estratégicas.</p>
             <p>2. Optimización y Automatización de Procesos: Mediante la simulación con FlexSim y la implementación de flujos de trabajo con herramientas como n8n, rediseño operaciones para aumentar la eficiencia, reducir costos y eliminar cuellos de botella.</p>
@@ -79,30 +75,34 @@
 
 <section id="habilidades" class="container content-section animate-on-scroll">
     <h2>Habilidades Clave</h2>
-    <h3 class="skills-main-subtitle">Habilidades Técnicas</h3>
-    <div class="skills-container">
-        <div class="skill-category">
-            <h4>Análisis de Datos y Programación</h4>
-            <ul>
-                <li>Python (Pandas, Scrapy, Matplotlib)</li>
-                <li>SQL (MySQL)</li>
-                <li>Microsoft Excel (Avanzado, Tablas Dinámicas)</li>
-                <li>Power BI (Creación de Dashboards)</li>
-            </ul>
+
+    <!-- Carrusel de Habilidades Técnicas -->
+    <h3 class="skills-subtitle">Habilidades Técnicas</h3>
+    <div class="swiper skills-logo-carousel" id="technical-skills-carousel">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">Python</div>
+            <div class="swiper-slide">Pandas & Scrapy</div>
+            <div class="swiper-slide">SQL (MySQL)</div>
+            <div class="swiper-slide">Power BI</div>
+            <div class="swiper-slide">Excel (Avanzado)</div>
+            <div class="swiper-slide">SolidWorks</div>
+            <div class="swiper-slide">FlexSim</div>
+            <div class="swiper-slide">AutoCAD</div>
+            <div class="swiper-slide">n8n</div>
         </div>
-        <div class="skill-category">
-            <h4>Ingeniería y Simulación</h4>
-            <ul>
-                <li>SolidWorks (Modelado 3D, CAE, Planos)</li>
-                <li>FlexSim (Simulación de procesos)</li>
-                <li>AutoCAD</li>
-            </ul>
-        </div>
-        <div class="skill-category">
-            <h4>Automatización</h4>
-            <ul>
-                <li>n8n (Low-code Automation)</li>
-            </ul>
+    </div>
+
+    <!-- Carrusel de Habilidades Blandas -->
+    <h3 class="skills-subtitle">Habilidades Blandas</h3>
+    <div class="swiper skills-logo-carousel" id="soft-skills-carousel">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">Comunicación Técnica</div>
+            <div class="swiper-slide">Gestión de Proyectos</div>
+            <div class="swiper-slide">Pensamiento Estratégico</div>
+            <div class="swiper-slide">Resolución de Problemas</div>
+            <div class="swiper-slide">Decisiones con Datos</div>
+            <div class="swiper-slide">Trabajo en Equipo</div>
+            <div class="swiper-slide">Adaptabilidad</div>
         </div>
     </div>
 </section>
@@ -129,21 +129,21 @@
         <h2>Experiencia</h2>
         <ul class="experience-list">
             <li>
-                <a href="experiencia1.html" aria-label="Ver experiencia como Investigador en Ingeniería">
+                <a href="#" aria-label="Ver experiencia como Investigador en Ingeniería"> <!-- TODO: Crear y enlazar página de experiencia -->
                     <small class="timeline-date">2022 - PRESENTE</small>
                     <h5>Investigador en Ingeniería</h5>
                     <p>Liderando proyectos, análisis de datos y publicaciones bajo normas APA e ISO.</p>
                 </a>
             </li>
             <li>
-                <a href="experiencia2.html" aria-label="Ver experiencia como Diseñador Industrial">
+                <a href="#" aria-label="Ver experiencia como Diseñador Industrial"> <!-- TODO: Crear y enlazar página de experiencia -->
                     <small class="timeline-date">2020 - 2022</small>
                     <h5>Diseñador Industrial</h5>
                     <p>Modelado CAD y creación de prototipos en SolidWorks.</p>
                 </a>
             </li>
             <li>
-                <a href="experiencia3.html" aria-label="Ver experiencia como Programador">
+                <a href="#" aria-label="Ver experiencia como Programador"> <!-- TODO: Crear y enlazar página de experiencia -->
                     <small class="timeline-date">2019 - 2020</small>
                     <h5>Programador</h5>
                     <p>Automatización y web; portafolio en GitHub.</p>

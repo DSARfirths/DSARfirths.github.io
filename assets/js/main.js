@@ -5,26 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   navToggler.addEventListener("click", () => {
     navLinks.classList.toggle("is-open");
+    navToggler.classList.toggle("is-open");
     const isExpanded = navLinks.classList.contains("is-open");
     navToggler.setAttribute("aria-expanded", isExpanded);
   });
-
-  // ===== Toggle modo oscuro (Sin cambios) =====
-  const toggle = document.getElementById("themeToggle");
-  toggle.addEventListener("change", () => {
-    document.documentElement.setAttribute(
-      "data-theme",
-      toggle.checked ? "dark" : "light"
-    );
-    // Guardar preferencia en localStorage
-    localStorage.setItem("theme", toggle.checked ? "dark" : "light");
-  });
-  // Cargar tema guardado
-  const savedTheme = localStorage.getItem("theme") || "light";
-  document.documentElement.setAttribute("data-theme", savedTheme);
-  if (savedTheme === "dark") {
-    toggle.checked = true;
-  }
 
   // ===== Formulario sin recarga (Sin cambios) =====
   const form = document.getElementById("contact-form");
@@ -120,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
       loop: true,
       autoplay: {
         delay: 5000, // 5 segundos por slide
-        disableOnInteraction: false,
+        disableOnInteraction: true, // Detener autoplay si el usuario interactúa
       },
       pagination: {
         el: '.swiper-pagination',
@@ -135,5 +119,35 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // ===== INICIALIZACIÓN DE CARRUSELES DE HABILIDADES (SWIPER) =====
+  const skillsCarouselConfig = {
+    loop: true,
+    slidesPerView: 'auto',
+    spaceBetween: 16,
+    speed: 5000, // Duración de la transición para un movimiento suave
+    autoplay: {
+        delay: 0, // Sin pausa entre transiciones
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true, // Pausa cuando el ratón está encima
+    },
+    freeMode: true,
+    allowTouchMove: false, // Desactiva el arrastre manual para un efecto de cinta continua
+  };
+
+  const techSkillsCarousel = document.getElementById('technical-skills-carousel');
+  if (techSkillsCarousel) {
+      new Swiper(techSkillsCarousel, skillsCarouselConfig);
+  }
+
+  const softSkillsCarousel = document.getElementById('soft-skills-carousel');
+  if (softSkillsCarousel) {
+      new Swiper(softSkillsCarousel, {
+          ...skillsCarouselConfig,
+          autoplay: {
+              ...skillsCarouselConfig.autoplay,
+              reverseDirection: true, // El segundo carrusel se mueve en dirección opuesta
+          },
+      });
+  }
 
 });

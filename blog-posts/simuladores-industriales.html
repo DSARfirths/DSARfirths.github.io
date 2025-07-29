@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Interactiva de Software de Simulación para Ingeniería Industrial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals & Subtle Accents -->
+    <!-- Application Structure Plan: The SPA is designed as a decision-support dashboard. It starts with a high-level introduction, then moves to the core interactive element: a multi-select comparison tool. Users can select up to three software platforms to compare across key metrics (visualized with a radar chart) and qualitative aspects (displayed in dynamic cards). This structure was chosen over a linear report format to empower the user to perform their own analysis based on what they value most. Below the comparison tool, a "Deep Dive" section allows users to explore each software individually. Finally, a "Personalized Roadmap" section provides actionable steps based on the report's recommendations. This task-oriented flow (Compare -> Explore -> Plan) is more intuitive and engaging for a student trying to make a strategic career decision. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Multi-platform feature comparison (Learning Curve, Python Integration, etc.). Goal: Compare. Viz/Method: Interactive Radar Chart (Chart.js) and dynamic HTML cards. Interaction: User selects platforms via checkboxes, triggering JS to update the chart data and card content. Justification: A radar chart provides an excellent multi-axial view for comparing entities across standardized metrics, offering a quick visual summary of strengths and weaknesses. Dynamic cards provide the necessary qualitative detail. Library: Chart.js.
+        - Report Info: Detailed descriptions of each software. Goal: Inform/Explore. Viz/Method: Tabbed content sections (HTML/JS). Interaction: User clicks on a software logo/name to reveal a detailed view with text, key features lists, and pros/cons. Justification: Tabs organize a large amount of information cleanly, preventing cognitive overload and allowing the user to focus on one item at a time.
+        - Report Info: Recommended learning plan. Goal: Guide/Action. Viz/Method: Stepped timeline/accordion (HTML/CSS/JS). Interaction: Users can click on each step to expand and see details. Justification: A timeline or stepped process visually represents the sequence of actions, making the plan feel structured and achievable.
+        - Report Info: Python integration philosophies. Goal: Analyze/Differentiate. Viz/Method: Side-by-side text blocks within the comparison cards. Interaction: Content appears based on user's platform selection. Justification: Direct side-by-side comparison of text is most effective for understanding nuanced philosophical differences.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #3D3D3D;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .btn-primary {
+            background-color: #4A5568;
+            color: #FFFFFF;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #2D3748;
+        }
+        .btn-secondary {
+            background-color: #E2E8F0;
+            color: #4A5568;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            transition: background-color 0.3s;
+        }
+        .btn-secondary:hover {
+            background-color: #CBD5E0;
+        }
+        .active-nav {
+            color: #2D3748;
+            font-weight: 700;
+            border-bottom: 2px solid #2D3748;
+        }
+        .inactive-nav {
+            color: #718096;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 50vh;
+            max-height: 500px;
+        }
+        .checkbox-label input:checked + span {
+            background-color: #4A5568;
+            border-color: #4A5568;
+        }
+        .checkbox-label input:checked + span svg {
+            display: block;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2">Guía Estratégica de Simulación</h1>
+            <p class="text-lg text-gray-600">Tu Hoja de Ruta Interactiva para la Ingeniería Industrial 4.0</p>
+        </header>
+
+        <main>
+            <div id="intro" class="card p-8 mb-12">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">Bienvenido, futuro Ingeniero Industrial</h2>
+                <p class="text-gray-700 leading-relaxed">
+                    Has llegado al lugar correcto. Esta guía interactiva está diseñada para ayudarte a tomar una de las decisiones más estratégicas de tu carrera: qué software de simulación dominar. Analizaremos las mejores herramientas del mercado, su integración con Python y su relevancia en la automatización industrial. Utiliza las herramientas a continuación para comparar plataformas, explorar sus detalles y trazar tu plan de aprendizaje personalizado.
+                </p>
+            </div>
+
+            <nav class="flex justify-center border-b-2 border-gray-200 mb-12">
+                <button data-section="comparador" class="nav-btn active-nav px-6 py-3 text-lg">Comparador</button>
+                <button data-section="explorador" class="nav-btn inactive-nav px-6 py-3 text-lg">Explorador</button>
+                <button data-section="roadmap" class="nav-btn inactive-nav px-6 py-3 text-lg">Hoja de Ruta</button>
+            </nav>
+
+            <div id="app-content">
+                
+                <section id="comparador-section">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold text-gray-800">Comparador de Plataformas</h2>
+                        <p class="text-gray-600 mt-2">Selecciona hasta 3 herramientas para una comparación visual y detallada.</p>
+                    </div>
+
+                    <div class="flex justify-center items-center flex-wrap gap-4 mb-8" id="selector-plataformas">
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                        <div class="lg:col-span-3 card p-6">
+                            <div class="chart-container">
+                                <canvas id="comparisonChart"></canvas>
+                            </div>
+                        </div>
+                        <div id="comparison-details" class="lg:col-span-2 space-y-4">
+                        </div>
+                    </div>
+                </section>
+
+                <section id="explorador-section" class="hidden">
+                     <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold text-gray-800">Explora cada Plataforma</h2>
+                        <p class="text-gray-600 mt-2">Haz clic en un logo para una inmersión profunda en cada herramienta.</p>
+                    </div>
+                    <div class="flex justify-center flex-wrap gap-6 mb-8" id="explorer-tabs">
+                    </div>
+                    <div id="explorer-content">
+                    </div>
+                </section>
+
+                <section id="roadmap-section" class="hidden">
+                     <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold text-gray-800">Tu Hoja de Ruta Profesional</h2>
+                        <p class="text-gray-600 mt-2">Un plan de acción paso a paso para desarrollar tus habilidades y destacar.</p>
+                    </div>
+                    <div id="roadmap-content" class="max-w-4xl mx-auto">
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer class="text-center mt-16 text-gray-500 text-sm">
+            <p>Aplicación interactiva generada a partir de la "Guía Estratégica de Software de Simulación".</p>
+            <p>Diseñada para potenciar la carrera de ingenieros industriales en la era de la Industria 4.0.</p>
+        </footer>
+    </div>
+
+    <script>
+        const softwareData = {
+            anylogic: {
+                name: "AnyLogic",
+                logo: "🚀",
+                tagline: "La Potencia Multi-Método",
+                color: 'rgba(255, 99, 132, 0.8)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                scores: {
+                    flexibilidad: 10,
+                    curvaAprendizaje: 5,
+                    visualizacion: 7,
+                    integracionPython: 9,
+                    automatizacion: 8,
+                    comunidad: 8
+                },
+                details: {
+                    filosofia: "Combina tres paradigmas (Eventos Discretos, Agentes, Dinámica de Sistemas) en un entorno basado en Java. Ofrece una flexibilidad inigualable para modelar sistemas complejos y una personalización casi ilimitada.",
+                    integracionPython: "<strong>Integración Profunda y Bidireccional:</strong> Usa la librería <strong>Pypeline</strong> para ejecutar código Python (ej. modelos de IA/ML) dentro de la simulación, y la <strong>Cloud API</strong> para orquestar simulaciones desde Python. Ideal para Gemelos Digitales con IA.",
+                    automatizacion: "Excelente con su <strong>Material Handling Library</strong> para modelar AGVs, conveyors y sistemas logísticos complejos. Usado por empresas como Tesla y Walmart para optimizar la automatización a gran escala.",
+                    versionEstudiante: "<strong>Personal Learning Edition (PLE)</strong> gratuita y permanente. Limitaciones: 10 tipos de agentes, 50,000 agentes dinámicos. Suficiente para proyectos de carrera complejos.",
+                    mercado: "Fuerte demanda en grandes corporaciones para roles de análisis de sistemas complejos, a menudo requiriendo AnyLogic junto con Java y Python."
+                }
+            },
+            flexsim: {
+                name: "FlexSim",
+                logo: "📦",
+                tagline: "El Campeón de la Visualización 3D",
+                color: 'rgba(54, 162, 235, 0.8)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                scores: {
+                    flexibilidad: 7,
+                    curvaAprendizaje: 9,
+                    visualizacion: 10,
+                    integracionPython: 6,
+                    automatizacion: 9,
+                    comunidad: 9
+                },
+                details: {
+                    filosofia: "Democratizar la simulación con un enfoque en la facilidad de uso, un entorno 3D inmersivo y una potente lógica visual sin código (Process Flow). Ideal para comunicar resultados a audiencias no técnicas.",
+                    integracionPython: "<strong>Acoplamiento Débil y Validación:</strong> La conexión con Python está diseñada para probar y validar algoritmos de control (escritos en Python) que se ejecutarán en hardware real (robots, PLCs). No es para control interno profundo del modelo.",
+                    automatizacion: "Muy fuerte en modelado de AGV/AMR y sistemas de almacenamiento. Soporta <strong>OPC UA</strong> para conectarse a PLCs reales, lo que es clave para la puesta en marcha virtual (virtual commissioning).",
+                    versionEstudiante: "<strong>Licencia de Estudiante</strong> gratuita. Limitación importante: <strong>100 objetos 3D</strong> y 250 actividades de Process Flow. Podría ser un obstáculo para proyectos grandes.",
+                    mercado: "Muy demandado para roles de Ingeniero Industrial y de Automatización en empresas como Tesla y Walmart, enfocado en optimización de manufactura y logística."
+                }
+            },
+            siemens: {
+                name: "Siemens Plant Simulation",
+                logo: "🏭",
+                tagline: "El Estándar Empresarial",
+                color: 'rgba(75, 192, 192, 0.8)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                scores: {
+                    flexibilidad: 8,
+                    curvaAprendizaje: 4,
+                    visualizacion: 8,
+                    integracionPython: 7,
+                    automatizacion: 10,
+                    comunidad: 7
+                },
+                details: {
+                    filosofia: "Precisión, escalabilidad e integración profunda con el ecosistema de manufactura digital de Siemens (NX, Teamcenter, TIA Portal). Es el estándar de facto en industrias como la automotriz y aeroespacial.",
+                    integracionPython: "<strong>Orquestación y Análisis de Datos:</strong> La integración se realiza a través de una interfaz externa (COM). Python se usa para preparar datos de entrada, automatizar la ejecución de miles de escenarios y analizar los resultados a gran escala.",
+                    automatizacion: "Insuperable para la optimización de plantas de producción a gran escala. Se integra directamente con PLCSIM Advanced para una puesta en marcha virtual exhaustiva de la lógica de control de PLCs Siemens.",
+                    versionEstudiante: "<strong>Versión de Estudiante</strong> gratuita y muy completa, sin limitaciones significativas especificadas. Acceso a la vasta Siemens Xcelerator Academy.",
+                    mercado: "Demanda concentrada en grandes empresas de manufactura (automotriz, maquinaria pesada). Python se está convirtiendo en una habilidad requerida para el análisis de datos asociado."
+                }
+            },
+            simpy: {
+                name: "SimPy",
+                logo: "🐍",
+                tagline: "La Alternativa del Programador",
+                color: 'rgba(255, 206, 86, 0.8)',
+                borderColor: 'rgba(255, 206, 86, 1)',
+                scores: {
+                    flexibilidad: 10,
+                    curvaAprendizaje: 3,
+                    visualizacion: 1,
+                    integracionPython: 10,
+                    automatizacion: 5,
+                    comunidad: 6
+                },
+                details: {
+                    filosofia: "Una librería de Python pura para simulación de eventos discretos. Sin GUI. Ofrece flexibilidad y control absolutos, integrándose de forma nativa con todo el ecosistema de Python (Pandas, TensorFlow, etc.).",
+                    integracionPython: "<strong>Nativo de Python:</strong> No es una integración, es Python. El control es total. El modelo y la lógica son uno.",
+                    automatizacion: "No tiene librerías de automatización pre-construidas. Se puede modelar cualquier cosa, pero requiere programar toda la lógica y la física desde cero. No es práctico para modelado rápido de sistemas estándar.",
+                    versionEstudiante: "Completamente gratuito y de código abierto (licencia MIT). Sin versiones ni limitaciones.",
+                    mercado: "Demandado en roles de alto nivel de investigación de operaciones y ciencia de datos que requieren construir modelos a medida desde cero. Es un gran diferenciador técnico."
+                }
+            }
+        };
+
+        const roadmapData = [
+            {
+                title: "Semana 1: Descarga e Instalación",
+                content: "El primer paso es obtener las licencias gratuitas. Solicita la <strong>Licencia de Estudiante de FlexSim</strong> y descarga la <strong>AnyLogic Personal Learning Edition (PLE)</strong>. Instala ambas en tu sistema para tenerlas listas."
+            },
+            {
+                title: "Semanas 2-6: Enfoque en AnyLogic",
+                content: "Dedica el primer mes a construir una base sólida en AnyLogic. Trabaja metódicamente a través del libro <strong>'AnyLogic in Three Days'</strong>. Explora los modelos de ejemplo, especialmente los que usan la <strong>Material Handling Library</strong>."
+            },
+            {
+                title: "Semanas 7-10: Integración con Python",
+                content: "Una vez cómodo con AnyLogic, aprovecha tu habilidad con Python. Comienza con la librería <strong>Pypeline</strong> para llamar a Python desde un modelo. Luego, explora la <strong>Cloud API</strong> para ejecutar un modelo en la nube desde un Jupyter Notebook."
+            },
+            {
+                title: "Semanas 11-12: Exploración de FlexSim",
+                content: "Con una base sólida, dedica un par de semanas a FlexSim. Sigue sus excelentes tutoriales en YouTube. Concéntrate en entender sus fortalezas: la herramienta <strong>Process Flow</strong> y la visualización 3D."
+            },
+            {
+                title: "Semestre Siguiente: Proyecto de Portafolio",
+                content: "Este es el paso más crucial. Elige una plataforma (idealmente AnyLogic) para desarrollar un proyecto significativo. <strong>El diferenciador clave:</strong> Utiliza Python para una función crítica, como un algoritmo de optimización para AGVs o un modelo de machine learning para predecir fallas. Documenta todo exhaustivamente. Este proyecto será tu activo más valioso en las entrevistas."
+            }
+        ];
+
+        let comparisonChart;
+        const selectedPlatforms = new Set();
+        const MAX_SELECTIONS = 3;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initNav();
+            initComparator();
+            initExplorer();
+            initRoadmap();
+        });
+
+        function initNav() {
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const sections = {
+                comparador: document.getElementById('comparador-section'),
+                explorador: document.getElementById('explorador-section'),
+                roadmap: document.getElementById('roadmap-section')
+            };
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    navButtons.forEach(btn => {
+                        btn.classList.remove('active-nav');
+                        btn.classList.add('inactive-nav');
+                    });
+                    button.classList.add('active-nav');
+                    button.classList.remove('inactive-nav');
+
+                    Object.values(sections).forEach(section => section.classList.add('hidden'));
+                    sections[button.dataset.section].classList.remove('hidden');
+                });
+            });
+        }
+
+        function initComparator() {
+            const selectorContainer = document.getElementById('selector-plataformas');
+            Object.keys(softwareData).forEach(key => {
+                const platform = softwareData[key];
+                const checkboxHtml = `
+                    <label class="checkbox-label flex items-center space-x-2 cursor-pointer">
+                        <input type="checkbox" data-platform="${key}" class="absolute opacity-0 w-0 h-0">
+                        <span class="w-6 h-6 rounded-md border-2 border-gray-300 flex items-center justify-center transition-all duration-200">
+                            <svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </span>
+                        <span class="text-lg font-semibold">${platform.logo} ${platform.name}</span>
+                    </label>
+                `;
+                selectorContainer.innerHTML += checkboxHtml;
+            });
+
+            document.querySelectorAll('#selector-plataformas input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', (e) => {
+                    const platformKey = e.target.dataset.platform;
+                    if (e.target.checked) {
+                        if (selectedPlatforms.size < MAX_SELECTIONS) {
+                            selectedPlatforms.add(platformKey);
+                        } else {
+                            e.target.checked = false;
+                            alert(`Puedes seleccionar un máximo de ${MAX_SELECTIONS} plataformas.`);
+                        }
+                    } else {
+                        selectedPlatforms.delete(platformKey);
+                    }
+                    updateComparison();
+                });
+            });
+            renderChart();
+        }
+
+        function updateComparison() {
+            renderChart();
+            renderDetails();
+        }
+
+        function renderChart() {
+            const ctx = document.getElementById('comparisonChart').getContext('2d');
+            const labels = ['Flexibilidad', 'Curva de Aprendizaje Inversa', 'Visualización', 'Integración con Python', 'Cap. Automatización', 'Comunidad y Soporte'];
+            
+            const datasets = Array.from(selectedPlatforms).map(key => {
+                const platform = softwareData[key];
+                return {
+                    label: platform.name,
+                    data: [
+                        platform.scores.flexibilidad,
+                        11 - platform.scores.curvaAprendizaje,
+                        platform.scores.visualizacion,
+                        platform.scores.integracionPython,
+                        platform.scores.automatizacion,
+                        platform.scores.comunidad
+                    ],
+                    backgroundColor: platform.color,
+                    borderColor: platform.borderColor,
+                    borderWidth: 2,
+                    pointBackgroundColor: platform.borderColor,
+                    pointRadius: 4
+                };
+            });
+
+            if (comparisonChart) {
+                comparisonChart.destroy();
+            }
+
+            comparisonChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 14,
+                                    family: 'Inter'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.r !== null) {
+                                        let originalValue = context.parsed.r;
+                                        if(context.label === 'Curva de Aprendizaje Inversa'){
+                                            originalValue = 11 - originalValue;
+                                            label += `${originalValue} (Más bajo es mejor)`;
+                                        } else {
+                                           label += `${originalValue}/10`;
+                                        }
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: '#E2E8F0'
+                            },
+                            grid: {
+                                color: '#E2E8F0'
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 12,
+                                    weight: '500'
+                                },
+                                color: '#4A5568'
+                            },
+                            ticks: {
+                                backdropColor: 'rgba(255, 255, 255, 0.75)',
+                                stepSize: 2,
+                                font: {
+                                    size: 10
+                                }
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 10
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderDetails() {
+            const detailsContainer = document.getElementById('comparison-details');
+            detailsContainer.innerHTML = '';
+            if (selectedPlatforms.size === 0) {
+                 detailsContainer.innerHTML = `<div class="card p-6 text-center text-gray-500"><p>Selecciona una o más plataformas para ver sus detalles aquí.</p></div>`;
+                 return;
+            }
+
+            Array.from(selectedPlatforms).forEach(key => {
+                const platform = softwareData[key];
+                const detailCard = `
+                    <div class="card p-6">
+                        <h3 class="text-xl font-bold mb-3" style="color: ${platform.borderColor};">${platform.logo} ${platform.name}</h3>
+                        <p class="font-semibold text-gray-700 mb-2">Filosofía:</p>
+                        <p class="text-sm text-gray-600 mb-3">${platform.details.filosofia}</p>
+                        <p class="font-semibold text-gray-700 mb-2">Integración con Python:</p>
+                        <p class="text-sm text-gray-600 mb-3">${platform.details.integracionPython}</p>
+                        <p class="font-semibold text-gray-700 mb-2">Versión de Estudiante:</p>
+                        <p class="text-sm text-gray-600">${platform.details.versionEstudiante}</p>
+                    </div>
+                `;
+                detailsContainer.innerHTML += detailCard;
+            });
+        }
+
+        function initExplorer() {
+            const tabsContainer = document.getElementById('explorer-tabs');
+            Object.keys(softwareData).forEach((key, index) => {
+                const platform = softwareData[key];
+                const tabHtml = `
+                    <button data-platform="${key}" class="explorer-tab-btn btn-secondary">${platform.logo} ${platform.name}</button>
+                `;
+                tabsContainer.innerHTML += tabHtml;
+            });
+            
+            document.querySelectorAll('.explorer-tab-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                     document.querySelectorAll('.explorer-tab-btn').forEach(btn => {
+                        btn.classList.remove('btn-primary');
+                        btn.classList.add('btn-secondary');
+                     });
+                     e.currentTarget.classList.add('btn-primary');
+                     e.currentTarget.classList.remove('btn-secondary');
+                     renderExplorerContent(e.currentTarget.dataset.platform);
+                });
+            });
+
+            const firstPlatformKey = Object.keys(softwareData)[0];
+            document.querySelector(`.explorer-tab-btn[data-platform="${firstPlatformKey}"]`).click();
+        }
+
+        function renderExplorerContent(platformKey) {
+            const contentContainer = document.getElementById('explorer-content');
+            const platform = softwareData[platformKey];
+            contentContainer.innerHTML = `
+                <div class="card p-8 max-w-4xl mx-auto">
+                    <h3 class="text-3xl font-bold mb-2" style="color: ${platform.borderColor};">${platform.logo} ${platform.name}</h3>
+                    <p class="text-lg text-gray-600 mb-6">${platform.tagline}</p>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-lg text-gray-800">Filosofía Central</h4>
+                            <p class="text-gray-700">${platform.details.filosofia}</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg text-gray-800">Capacidades en Automatización</h4>
+                            <p class="text-gray-700">${platform.details.automatizacion}</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg text-gray-800">El Ecosistema Python</h4>
+                            <p class="text-gray-700">${platform.details.integracionPython}</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg text-gray-800">Mercado Laboral</h4>
+                            <p class="text-gray-700">${platform.details.mercado}</p>
+                        </div>
+                         <div>
+                            <h4 class="font-semibold text-lg text-gray-800">Versión para Estudiantes</h4>
+                            <p class="text-gray-700">${platform.details.versionEstudiante}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initRoadmap() {
+            const roadmapContainer = document.getElementById('roadmap-content');
+            let roadmapHtml = '<div class="space-y-4">';
+            roadmapData.forEach((step, index) => {
+                roadmapHtml += `
+                    <div class="card" x-data="{ open: ${index === 0 ? 'true' : 'false'} }">
+                        <div @click="open = !open" class="p-6 cursor-pointer flex justify-between items-center">
+                            <h4 class="text-xl font-semibold text-gray-800">${step.title}</h4>
+                            <span class="text-2xl text-gray-500" x-text="open ? '-' : '+'"></span>
+                        </div>
+                        <div x-show="open" x-transition class="px-6 pb-6 text-gray-700">
+                            <p>${step.content}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            roadmapHtml += '</div>';
+            roadmapContainer.innerHTML = roadmapHtml;
+            
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js';
+            script.defer = true;
+            document.head.appendChild(script);
+        }
+    </script>
+</body>
+</html>

@@ -173,11 +173,12 @@ section {
 
 /* ===== HERO SECTION ===== */
 .hero-section {
+  --hero-bg-image: url('../img/mi-imagen-de-fondo.png');
   /* La imagen de fondo y el overlay oscuro se aplican aquí */
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../img/mi-imagen-de-fondo.png');
+  background-image: var(--hero-bg-image);
   background-size: cover;
   background-position: center center;
-  background-attachment: fixed; /* Efecto parallax para un toque profesional */
+  background-attachment: scroll; /* Cambiado a 'scroll' para máxima compatibilidad y para asegurar que la imagen se muestre siempre */
   padding: 8rem 0; /* Aumentamos el padding para dar más espacio y visibilidad a la imagen */
   text-align: center;
   color: #FFFFFF; /* Forzamos el texto principal a ser blanco */
@@ -190,14 +191,14 @@ section {
   font-size: 3.5rem;
   margin-bottom: 1rem;
   color: #FFFFFF; /* Aseguramos que el título sea blanco */
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Sombra para mejorar legibilidad */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); /* Sombra más fuerte para máxima legibilidad sin overlay */
 }
 .hero-subtitles {
   /* El text-align: right ya no es necesario */
 }
-.hero-section .lead, .hero-section small {
+.hero-section .lead, .hero-section .lead-text, .hero-section small {
   color: #FFFFFF; /* Aseguramos que los subtítulos sean blancos */
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); /* Sombra más fuerte para máxima legibilidad */
 }
 .hero-cta {
   margin-top: 2rem;
@@ -888,10 +889,6 @@ select.form-input {
     grid-template-columns: 1fr;
   }
   .gallery-item.is-reversed .gallery-image-container { order: 1; }
-  /* Desactivar efecto parallax en móvil para mejorar rendimiento */
-  .hero-section {
-    background-attachment: scroll;
-  }
 }
 
 /* ===== SKILLS CAROUSELS (LOGO/BRAND STYLE) ===== */

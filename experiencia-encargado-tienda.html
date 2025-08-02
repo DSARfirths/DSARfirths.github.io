@@ -9,12 +9,32 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <style>
+        /* 
+         * NOTA: Este estilo se ha añadido aquí temporalmente.
+         * Para una mejor organización, debería moverse al archivo principal 'assets/css/main.css'.
+        */
+        .hero-section--light {
+            background-color: #f8f9fa; /* Un gris claro para el fondo */
+            background-image: none;
+            color: #212529; /* Texto oscuro principal */
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid #dee2e6; /* Un borde sutil para separar */
+        }
+
+        .hero-section--light h1,
+        .hero-section--light .lead-text {
+            color: inherit; /* Hereda el color de texto oscuro */
+            text-shadow: none; /* Elimina la sombra de texto, innecesaria en fondos claros */
+        }
+    </style>
 </head>
 <body>
 
 <nav class="main-nav" id="main-nav-placeholder"></nav>
 
-<header class="hero-section">
+<header class="hero-section hero-section--light">
     <div class="container">
         <h1>Encargado de Tienda</h1>
         <p class="lead-text">Empresa: Ropa Dely | Fechas: Enero 2023 - Enero 2024</p>
@@ -22,7 +42,7 @@
 </header>
 
 <main class="container content-section">
-    <div class="experience-detail-content" style="max-width: 800px; margin: 0 auto;">
+    <div class="experience-detail-content" style="max-width: 800px; margin: 0 auto 3rem auto;">
         <p>Asumí el liderazgo de la tienda con el objetivo de profesionalizar la gestión, optimizar las operaciones y aumentar la rentabilidad. Esta experiencia fue un laboratorio práctico donde apliqué conceptos de análisis de negocio, gestión de inventarios y liderazgo de equipos en un entorno real y dinámico.</p>
         
         <h2 style="margin-top: 2rem;">Logros y Proyectos Clave</h2>

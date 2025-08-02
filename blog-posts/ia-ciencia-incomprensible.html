@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA y el Futuro de la Ciencia: Un Explorador Interactivo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Neutral & Deep Teal -->
+    <!-- Application Structure Plan: The SPA is designed as a dynamic, non-linear dashboard. It starts with a hero section to set the context. A sticky navigation bar allows users to jump to key thematic sections: 'Casos de Estudio', 'Caja de Herramientas de IA', 'El Nuevo Científico', and 'Implicaciones'. The core 'Casos de Estudio' section uses an interactive card system where clicking a case dynamically updates a central panel with detailed text and a relevant visualization (Chart.js or HTML/CSS diagram). This structure prioritizes user-driven exploration over the linear format of the source report, allowing comparison and focused learning. The 'Caja de Herramientas' uses tabs to segment complex technical information, making it more digestible. This design transforms the dense report into an engaging and intuitive learning experience. -->
+    <!-- Visualization & Content Choices: 1. LIGO Sensitivity: Report data (10-15% increase) is shown in a Bar Chart (Chart.js) to clearly compare human vs. AI performance. This is triggered by user interaction (clicking the LIGO card). 2. PyTheus Protocol Complexity: A visual diagram made with HTML/CSS is used to contrast the complex human protocol with the simpler AI version, as a diagram is more intuitive than text for structural comparison. 3. AI Methodologies: An interactive tabbed layout (HTML/CSS/JS) organizes the technical explanations of GNNs, GANs, etc., preventing information overload. 4. Human vs. AI Roles: A side-by-side list comparison (HTML/CSS) effectively highlights the symbiotic relationship. 5. Dark Matter Equation Accuracy: A bar chart (Chart.js) compares the accuracy of human vs. AI-generated formulas. All choices avoid SVG/Mermaid and use interaction to reveal information, enhancing engagement and comprehension within the designed application structure. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfcfb;
+            color: #333;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #0d9488;
+            border-bottom-color: #0d9488;
+        }
+        .case-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .case-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .case-card.active {
+            border-color: #0d9488;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .tab-button.active {
+            background-color: #0d9488;
+            color: white;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .gemini-button {
+            background-color: #0d9488;
+            color: white;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .gemini-button:hover {
+            background-color: #0f766e;
+            transform: scale(1.05);
+        }
+        .gemini-button:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <header id="home" class="sticky top-0 z-50 bg-stone-50/80 backdrop-blur-lg shadow-sm">
+        <nav class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <h2 class="text-xl font-bold text-teal-700">Ciencia Posthumana</h2>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-stone-600 border-b-2 border-transparent pb-1">Inicio</a>
+                    <a href="#case-studies" class="nav-link text-stone-600 border-b-2 border-transparent pb-1">Casos de Estudio</a>
+                    <a href="#toolbox" class="nav-link text-stone-600 border-b-2 border-transparent pb-1">Caja de Herramientas</a>
+                    <a href="#collaboration" class="nav-link text-stone-600 border-b-2 border-transparent pb-1">El Nuevo Científico</a>
+                    <a href="#implications" class="nav-link text-stone-600 border-b-2 border-transparent pb-1">Implicaciones</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <section class="text-center mb-24">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 text-teal-800">La IA ya está haciendo ciencia que nadie entiende.</h1>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto text-stone-600">
+                Un análisis interactivo sobre cómo la inteligencia artificial está colaborando con los humanos para expandir las fronteras del conocimiento, proponiendo soluciones que parecen "alienígenas" pero que funcionan. ¿Estamos ante el amanecer de una nueva era científica?
+            </p>
+        </section>
+
+        <section id="case-studies" class="mb-24 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold">Casos de Estudio en la Frontera</h2>
+                <p class="max-w-2xl mx-auto mt-2 text-stone-600">
+                    La IA no solo analiza datos, sino que diseña activamente experimentos y descubre nuevos principios. Selecciona un caso para explorar cómo la IA está superando a los humanos en su propio juego, y cómo los científicos están interpretando estos hallazgos revolucionarios.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div id="card-ligo" class="case-card cursor-pointer p-6 bg-white rounded-xl shadow-md border-2 border-transparent" onclick="selectCase('ligo')">
+                    <div class="text-4xl mb-3">🌊</div>
+                    <h3 class="font-bold text-lg text-teal-700">Rediseño de LIGO</h3>
+                    <p class="text-sm text-stone-600">Una IA optimiza el detector de ondas gravitacionales con un diseño "absurdo" que aumenta su sensibilidad.</p>
+                </div>
+                <div id="card-pytheus" class="case-card cursor-pointer p-6 bg-white rounded-xl shadow-md border-2 border-transparent" onclick="selectCase('pytheus')">
+                    <div class="text-4xl mb-3">🔗</div>
+                    <h3 class="font-bold text-lg text-teal-700">Reescritura Cuántica</h3>
+                    <p class="text-sm text-stone-600">Un algoritmo llamado PyTheus encuentra una forma radicalmente más simple de lograr el entrelazamiento cuántico.</p>
+                </div>
+                <div id="card-liegan" class="case-card cursor-pointer p-6 bg-white rounded-xl shadow-md border-2 border-transparent" onclick="selectCase('liegan')">
+                    <div class="text-4xl mb-3">🌌</div>
+                    <h3 class="font-bold text-lg text-teal-700">Redescubriendo a Einstein</h3>
+                    <p class="text-sm text-stone-600">Analizando datos brutos, una IA redescubre de forma autónoma una de las simetrías fundamentales del universo.</p>
+                </div>
+                <div id="card-darkmatter" class="case-card cursor-pointer p-6 bg-white rounded-xl shadow-md border-2 border-transparent" onclick="selectCase('darkmatter')">
+                    <div class="text-4xl mb-3">💡</div>
+                    <h3 class="font-bold text-lg text-teal-700">Ecuaciones de Materia Oscura</h3>
+                    <p class="text-sm text-stone-600">Un sistema de IA traduce su conocimiento opaco en una nueva ecuación que supera a las fórmulas humanas.</p>
+                </div>
+            </div>
+
+            <div id="case-content-area" class="bg-white p-8 rounded-xl shadow-lg min-h-[400px]">
+                <!-- El contenido se inyectará aquí -->
+            </div>
+        </section>
+
+        <section id="toolbox" class="mb-24 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold">La Caja de Herramientas de IA</h2>
+                <p class="max-w-2xl mx-auto mt-2 text-stone-600">
+                    "IA" no es un término monolítico. Es un conjunto de técnicas especializadas. Aquí exploramos los motores computacionales detrás de estos descubrimientos, desde optimizadores hasta traductores de conocimiento.
+                </p>
+            </div>
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-4">
+                <div class="flex flex-wrap justify-center gap-2 mb-4">
+                    <button id="tab-button-optimization" class="tab-button px-4 py-2 rounded-lg text-sm font-medium bg-stone-100 text-stone-700 transition" onclick="selectTab('optimization')">Optimización</button>
+                    <button id="tab-button-graph" class="tab-button px-4 py-2 rounded-lg text-sm font-medium bg-stone-100 text-stone-700 transition" onclick="selectTab('graph')">Redes de Grafos</button>
+                    <button id="tab-button-gan" class="tab-button px-4 py-2 rounded-lg text-sm font-medium bg-stone-100 text-stone-700 transition" onclick="selectTab('gan')">Redes Adversarias</button>
+                    <button id="tab-button-symbolic" class="tab-button px-4 py-2 rounded-lg text-sm font-medium bg-stone-100 text-stone-700 transition" onclick="selectTab('symbolic')">Regresión Simbólica</button>
+                </div>
+                <div id="toolbox-content-area" class="p-6 min-h-[200px]">
+                    <!-- El contenido de la pestaña se inyectará aquí -->
+                </div>
+            </div>
+        </section>
+
+        <section id="collaboration" class="mb-24 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold">El Nuevo Científico: Una Colaboración Simbiótica</h2>
+                 <p class="max-w-2xl mx-auto mt-2 text-stone-600">
+                    La IA no reemplaza al científico, sino que lo aumenta, creando un sistema híbrido donde cada parte juega un rol fundamental. Esta es la gran división del trabajo en la nueva era del descubrimiento.
+                </p>
+            </div>
+            <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 items-center gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                    <h3 class="text-2xl font-bold text-teal-700 mb-4">El Rol de la IA</h3>
+                    <ul class="space-y-3 text-stone-600">
+                        <li class="flex items-center"><span class="text-2xl mr-3">🔎</span><span>Explora espacios de soluciones inmensos.</span></li>
+                        <li class="flex items-center"><span class="text-2xl mr-3">⚙️</span><span>Optimiza sin sesgos estéticos o cognitivos.</span></li>
+                        <li class="flex items-center"><span class="text-2xl mr-3">🧩</span><span>Reconoce patrones en datos de alta dimensión.</span></li>
+                        <li class="flex items-center"><span class="text-2xl mr-3">🤖</span><span>Ejecuta el "qué" con eficiencia sobrehumana.</span></li>
+                    </ul>
+                </div>
+
+                <div class="text-6xl text-center text-teal-500 font-bold">+</div>
+
+                <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                    <h3 class="text-2xl font-bold text-teal-700 mb-4">El Rol del Humano</h3>
+                    <ul class="space-y-3 text-stone-600">
+                        <li class="flex items-center"><span class="text-2xl mr-3">🧠</span><span>Formula la pregunta y define el objetivo.</span></li>
+                        <li class="flex items-center"><span class="text-2xl mr-3">🔬</span><span>Interpreta el resultado y busca la explicación.</span></li>
+                        <li class="flex items-center"><span class="text-2xl mr-3">✅</span><span>Valida la solución en el mundo real.</span></li>
+                        <li class="flex items-center"><span class="text-2xl mr-3">🤔</span><span>Proporciona el "porqué" y la comprensión.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="implications" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold">Implicaciones: ¿Hacia Dónde Vamos?</h2>
+                <p class="max-w-2xl mx-auto mt-2 text-stone-600">
+                    Este nuevo paradigma no está exento de desafíos filosóficos y prácticos. Desde la naturaleza del conocimiento hasta los riesgos de la opacidad, la comunidad científica se enfrenta a preguntas profundas.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="font-bold text-lg text-teal-700 mb-2">Ciencia Posthumana</h3>
+                    <p class="text-sm text-stone-600">No es una ciencia sin humanos, sino una ciencia que ya no puede ser realizada por la mente sin aumentar. El descubridor es el sistema simbiótico humano-IA.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="font-bold text-lg text-teal-700 mb-2">Riesgos y Responsabilidad</h3>
+                    <p class="text-sm text-stone-600">La opacidad de las "cajas negras", el sesgo algorítmico y la privatización del conocimiento amenazan la reproducibilidad, el pilar de la ciencia.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="font-bold text-lg text-teal-700 mb-2">Educación del Futuro</h3>
+                    <p class="text-sm text-stone-600">Se necesitan nuevas habilidades: pensamiento crítico, formulación de problemas y colaboración interpretativa con la IA, no solo conocimiento de hechos.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-xl shadow-md md:col-span-2 lg:col-span-3">
+                    <h3 class="font-bold text-lg text-teal-700 mb-2">Explora el Futuro con IA</h3>
+                    <p class="text-sm text-stone-600 mb-4">Usa la IA para especular sobre las próximas fronteras de la investigación científica y los dilemas éticos que podríamos enfrentar.</p>
+                    <button id="future-question-button" class="gemini-button px-4 py-2 rounded-lg text-sm font-medium">✨ Generar Próximas Preguntas</button>
+                    <div id="gemini-future-questions" class="mt-4 p-4 bg-teal-50 rounded-lg text-stone-700 hidden"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-stone-100 mt-24">
+        <div class="container mx-auto px-6 py-4 text-center text-stone-500 text-sm">
+            <p>Aplicación interactiva basada en el informe "La Ciencia Posthumana". Creado para explorar la frontera de la IA en el descubrimiento científico.</p>
+        </div>
+    </footer>
+
+    <script>
+        const caseData = {
+            ligo: {
+                title: 'Rediseño de LIGO: Una Inteligencia Alienígena en la Máquina',
+                content: `
+                    <p class="mb-4 text-stone-600"><strong>El Desafío:</strong> El detector de ondas gravitacionales LIGO opera en los límites de la física, donde el "ruido cuántico" impone una barrera a la sensibilidad. Superar este límite es uno de los mayores retos de la metrología.</p>
+                    <p class="mb-4 text-stone-600"><strong>La Solución de la IA:</strong> Un algoritmo de optimización, libre de la intuición humana, propuso un diseño "alienígena" y asimétrico. Incluía un bucle de 3 km que parecía absurdo para los físicos. Sin embargo, este diseño aumentaba la sensibilidad del detector en un 10-15%.</p>
+                    <p class="mb-4 text-stone-600"><strong>La Interpretación Humana:</strong> Tras meses de análisis, los científicos se dieron cuenta de que la IA no había inventado nueva física, sino que había redescubierto e implementado una teoría soviética olvidada de los años 70 sobre Medición Cuántica No Demolitiva (QND). La IA encontró un camino óptimo que los humanos habían pasado por alto.</p>
+                    <div class="chart-container mt-6">
+                        <canvas id="ligoChart"></canvas>
+                    </div>
+                `,
+                chart: () => {
+                    new Chart(document.getElementById('ligoChart'), {
+                        type: 'bar',
+                        data: {
+                            labels: ['Diseño Humano', 'Diseño IA'],
+                            datasets: [{
+                                label: 'Sensibilidad Relativa',
+                                data: [100, 115],
+                                backgroundColor: ['rgba(59, 130, 246, 0.6)', 'rgba(13, 148, 136, 0.6)'],
+                                borderColor: ['rgba(59, 130, 246, 1)', 'rgba(13, 148, 136, 1)'],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: { y: { beginAtZero: true, ticks: { callback: value => value + '%' } } },
+                            plugins: { legend: { display: false }, title: { display: true, text: 'Mejora de Sensibilidad en LIGO' } }
+                        }
+                    });
+                }
+            },
+            pytheus: {
+                title: 'Reescribiendo el Entrelazamiento Cuántico: La Simplicidad de PyTheus',
+                content: `
+                    <p class="mb-4 text-stone-600"><strong>El Protocolo Establecido:</strong> El "intercambio de entrelazamiento", un protocolo clave para las redes cuánticas ganador del Nobel, requería pasos complejos como empezar con fotones ya entrelazados y realizar mediciones especiales.</p>
+                    <p class="mb-4 text-stone-600"><strong>La Solución de la IA:</strong> El software PyTheus, en lugar de redescubrir el protocolo conocido, encontró una solución radicalmente más simple. Eliminó los requisitos previos, basando su diseño en el principio más fundamental de la indistinguibilidad de las trayectorias de los fotones.</p>
+                    <p class="mb-4 text-stone-600"><strong>La Interpretación Humana:</strong> Los científicos, inicialmente escépticos, se dieron cuenta de que la IA había actuado como una "navaja de Ockham", eliminando la complejidad superflua que los humanos habían asumido como necesaria durante décadas. El diseño fue validado experimentalmente, demostrando ser superior.</p>
+                    <div class="mt-6 text-center">
+                        <h4 class="font-bold mb-4">Comparación de Complejidad del Protocolo</h4>
+                        <div class="flex flex-col md:flex-row justify-around items-center gap-8">
+                            <div class="border p-4 rounded-lg w-full md:w-2/5">
+                                <h5 class="font-semibold mb-2">Protocolo Humano (1993)</h5>
+                                <ul class="text-sm text-left list-disc list-inside space-y-1">
+                                    <li>2 fuentes de fotones entrelazados</li>
+                                    <li>Medición de Estado de Bell</li>
+                                    <li>Componentes ópticos complejos</li>
+                                </ul>
+                            </div>
+                            <div class="text-2xl font-bold text-teal-600">&rarr;</div>
+                            <div class="border p-4 rounded-lg w-full md:w-2/5 bg-teal-50 border-teal-500">
+                                <h5 class="font-semibold mb-2">Protocolo IA (PyTheus)</h5>
+                                <ul class="text-sm text-left list-disc list-inside space-y-1">
+                                    <li>Fuentes de fotones simples</li>
+                                    <li>Principio de indistinguibilidad</li>
+                                    <li>Configuración más simple y eficiente</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            liegan: {
+                title: 'Redescubriendo a Einstein: Empirismo Computacional Puro',
+                content: `
+                    <p class="mb-4 text-stone-600"><strong>El Desafío:</strong> Las leyes de la física se basan en simetrías. La relatividad de Einstein, por ejemplo, se basa en la simetría de Lorentz. ¿Podría una IA descubrir esta simetría desde cero, solo mirando datos?</p>
+                    <p class="mb-4 text-stone-600"><strong>La Solución de la IA:</strong> Un sistema llamado LieGAN, basado en Redes Generativas Adversarias (GAN), analizó datos brutos de colisiones de partículas. Sin ningún conocimiento previo de física, aprendió las transformaciones que dejaban los datos sin cambios, redescubriendo de forma autónoma la simetría de Lorentz.</p>
+                    <p class="mb-4 text-stone-600"><strong>La Interpretación Humana:</strong> Este logro representa una forma de empirismo computacional puro. La IA, libre del sesgo teórico humano, infirió una ley fundamental directamente de la observación. Esto abre la puerta a buscar nuevas simetrías desconocidas en los datos, lo que podría guiar a los físicos hacia nuevas teorías.</p>
+                    <div class="mt-6 text-center">
+                         <h4 class="font-bold mb-4">Proceso de Descubrimiento de Simetría</h4>
+                        <div class="flex items-center justify-center space-x-4 p-4 bg-stone-100 rounded-lg">
+                            <span class="text-lg">Datos Brutos 📊</span>
+                            <span class="text-2xl font-bold text-teal-600">&rarr;</span>
+                            <div class="text-center border-2 border-dashed border-teal-600 p-4 rounded-lg">
+                                <span class="font-bold">LieGAN</span><br>
+                                <span class="text-sm">(Caja Negra)</span>
+                            </div>
+                            <span class="text-2xl font-bold text-teal-600">&rarr;</span>
+                            <span class="text-lg">Simetría de Lorentz 📜</span>
+                        </div>
+                    </div>
+                `
+            },
+            darkmatter: {
+                title: 'Formulando lo Invisible: Traduciendo la Caja Negra',
+                content: `
+                    <p class="mb-4 text-stone-600"><strong>El Desafío:</strong> Las redes neuronales son "cajas negras". Pueden hacer predicciones increíblemente precisas, pero no pueden explicar el "porqué". En ciencia, la explicación es tan importante como la predicción.</p>
+                    <p class="mb-4 text-stone-600"><strong>La Solución de la IA:</strong> Un sistema de dos pasos. Primero, una Red Neuronal de Grafos (GNN) aprendió a predecir la densidad de la materia oscura a partir de simulaciones. Luego, una segunda IA, mediante "regresión simbólica", analizó la GNN y "destiló" su conocimiento en una ecuación matemática explícita y legible por humanos.</p>
+                    <p class="mb-4 text-stone-600"><strong>La Interpretación Humana:</strong> Este método tiende un puente sobre el problema de la caja negra. La ecuación generada por la IA no solo era comprensible, sino que resultó ser más precisa que las fórmulas desarrolladas por físicos. La IA se convierte en un motor de generación de hipótesis, no solo en un predictor.</p>
+                    <div class="chart-container mt-6">
+                        <canvas id="darkmatterChart"></canvas>
+                    </div>
+                `,
+                 chart: () => {
+                    new Chart(document.getElementById('darkmatterChart'), {
+                        type: 'bar',
+                        data: {
+                            labels: ['Fórmula Humana', 'Fórmula de IA'],
+                            datasets: [{
+                                label: 'Precisión Predictiva',
+                                data: [100, 110],
+                                backgroundColor: ['rgba(59, 130, 246, 0.6)', 'rgba(13, 148, 136, 0.6)'],
+                                borderColor: ['rgba(59, 130, 246, 1)', 'rgba(13, 148, 136, 1)'],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: { y: { beginAtZero: true, ticks: { callback: value => value } } },
+                            plugins: { legend: { display: false }, title: { display: true, text: 'Precisión de la Ecuación de Materia Oscura' } }
+                        }
+                    });
+                }
+            }
+        };
+
+        const toolboxData = {
+            optimization: {
+                title: 'Optimización de Alta Dimensión',
+                content: 'Muchos problemas científicos son problemas de optimización en un "espacio de soluciones" con miles de dimensiones. La IA puede explorar estos espacios de forma sistemática, sin los sesgos de la intuición humana, para encontrar el punto óptimo. Es la técnica detrás del rediseño de LIGO, encontrando una solución "fea" pero superior.'
+            },
+            graph: {
+                title: 'Redes de Grafos (PyTheus)',
+                content: 'Esta técnica representa un sistema, como un experimento, como un grafo matemático. La IA ajusta los parámetros del grafo para lograr un resultado deseado. Es ideal para problemas combinatorios, como diseñar nuevos experimentos cuánticos o moléculas, permitiendo a la IA descubrir configuraciones radicalmente nuevas y a menudo más simples.'
+            },
+            gan: {
+                title: 'Redes Generativas Adversarias (LieGAN)',
+                content: 'Dos redes neuronales compiten: un "generador" que intenta alterar los datos y un "discriminador" que intenta detectar la alteración. Para ganar, el generador debe aprender las transformaciones que son simetrías inherentes de los datos. Así es como LieGAN redescubrió la simetría de Lorentz sin conocimiento previo.'
+            },
+            symbolic: {
+                title: 'GNN + Regresión Simbólica',
+                content: 'Este es un método para traducir "cajas negras". Primero, una Red Neuronal de Grafos (GNN) aprende patrones complejos en los datos. Luego, la regresión simbólica, un tipo de IA que busca ecuaciones, analiza la GNN para extraer una fórmula matemática comprensible que imita su comportamiento. Convierte la predicción opaca en una hipótesis transparente.'
+            }
+        };
+
+        const caseContentArea = document.getElementById('case-content-area');
+        const toolboxContentArea = document.getElementById('toolbox-content-area');
+
+        async function callGeminiAPI(prompt) {
+            const apiKey = ""; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            
+            let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+            const payload = { contents: chatHistory };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API request failed with status ${response.status}`);
+                }
+
+                const result = await response.json();
+                
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                    console.error("Unexpected API response structure:", result);
+                    return "No se pudo obtener una respuesta válida de la IA.";
+                }
+            } catch (error) {
+                console.error("Error calling Gemini API:", error);
+                return "Error al contactar con la IA. Por favor, inténtalo de nuevo más tarde.";
+            }
+        }
+
+        function selectCase(caseKey) {
+            const allCards = document.querySelectorAll('.case-card');
+            allCards.forEach(card => card.classList.remove('active'));
+            document.getElementById(`card-${caseKey}`).classList.add('active');
+
+            const data = caseData[caseKey];
+            const baseContent = `
+                <h3 class="text-2xl font-bold text-teal-700 mb-4">${data.title}</h3>
+                ${data.content}
+                <div class="mt-6 pt-4 border-t border-stone-200">
+                    <button id="explain-button" class="gemini-button px-4 py-2 rounded-lg text-sm font-medium">✨ Explicar Sencillo</button>
+                    <div id="gemini-explanation" class="mt-4 p-4 bg-teal-50 rounded-lg text-stone-700 hidden"></div>
+                </div>
+            `;
+
+            caseContentArea.innerHTML = `<div class="fade-in">${baseContent}</div>`;
+            
+            if (data.chart) {
+                data.chart();
+            }
+
+            const explainButton = document.getElementById('explain-button');
+            const explanationDiv = document.getElementById('gemini-explanation');
+
+            explainButton.addEventListener('click', async () => {
+                explainButton.disabled = true;
+                explanationDiv.classList.remove('hidden');
+                explanationDiv.innerHTML = 'Generando explicación...';
+
+                const prompt = `Explica el siguiente concepto científico como si yo fuera un estudiante curioso de secundaria, usando analogías simples y evitando la jerga compleja. El concepto es: "${data.title}". Este es el contexto técnico para tu referencia: ${data.content.replace(/<[^>]*>/g, ' ')}`;
+                
+                const explanation = await callGeminiAPI(prompt);
+                explanationDiv.innerHTML = explanation.replace(/\n/g, '<br>');
+                explainButton.disabled = false;
+            });
+        }
+
+        function selectTab(tabKey) {
+            const allButtons = document.querySelectorAll('.tab-button');
+            allButtons.forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`tab-button-${tabKey}`).classList.add('active');
+
+            const data = toolboxData[tabKey];
+            toolboxContentArea.innerHTML = `<div class="fade-in">
+                <h4 class="font-bold text-lg text-teal-700 mb-2">${data.title}</h4>
+                <p class="text-stone-600">${data.content}</p>
+            </div>`;
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            selectCase('ligo');
+            selectTab('optimization');
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section[id]');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 80) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            const futureButton = document.getElementById('future-question-button');
+            const futureQuestionsDiv = document.getElementById('gemini-future-questions');
+
+            futureButton.addEventListener('click', async () => {
+                futureButton.disabled = true;
+                futureQuestionsDiv.classList.remove('hidden');
+                futureQuestionsDiv.innerHTML = 'Generando preguntas...';
+
+                const prompt = `Basado en el siguiente informe sobre la IA en la ciencia, que discute cómo la IA está rediseñando LIGO, reescribiendo el entrelazamiento cuántico, redescubriendo simetrías y formulando ecuaciones para la materia oscura, ¿cuáles son las 3 próximas grandes preguntas o desafíos de investigación en la intersección de la IA y la física fundamental? Formula las preguntas y una breve justificación para cada una.`;
+
+                const questions = await callGeminiAPI(prompt);
+                futureQuestionsDiv.innerHTML = questions.replace(/\n/g, '<br>');
+                futureButton.disabled = false;
+            });
+        });
+
+    </script>
+</body>
+</html>

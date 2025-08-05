@@ -172,16 +172,24 @@ section {
 
 
 /* ===== HERO SECTION ===== */
+@keyframes moveGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .hero-section {
-  --hero-bg-image: url('../img/mi-imagen-de-fondo.png');
-  /* La imagen de fondo y el overlay oscuro se aplican aquí */
-  background-image: var(--hero-bg-image);
-  background-size: cover;
+  /* Fondo animado por defecto para el index. Las páginas de experiencia sobreescriben este estilo. */
+  background: linear-gradient(-45deg, #1A1A1D, #9B5DE5, #432d6e, #1A1A1D);
+  background-size: 400% 400%;
+  animation: moveGradient 15s ease infinite;
+  
+  /* Estilos generales que se mantienen */
   background-position: center center;
-  background-attachment: scroll; /* Cambiado a 'scroll' para máxima compatibilidad y para asegurar que la imagen se muestre siempre */
-  padding: 8rem 0; /* Aumentamos el padding para dar más espacio y visibilidad a la imagen */
+  background-attachment: scroll;
+  padding: 8rem 0;
   text-align: center;
-  color: #FFFFFF; /* Forzamos el texto principal a ser blanco */
+  color: #FFFFFF;
   position: relative;
 }
 .hero-content {

@@ -244,6 +244,17 @@ document.addEventListener("DOMContentLoaded", () => {
   if (form) {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      const budgetInput = document.getElementById('budget');
+      const budgetValue = parseFloat(budgetInput.value);
+
+      if (budgetValue < 50) {
+        alert('Por favor, ingresa un presupuesto de al menos S/ 50.');
+        budgetInput.focus();
+        budgetInput.style.borderColor = 'red';
+        return; 
+      }
+      budgetInput.style.borderColor = '';
+      
       const data = new FormData(form);
       try {
         const response = await fetch(form.action, { 
@@ -252,6 +263,10 @@ document.addEventListener("DOMContentLoaded", () => {
             headers: { 'Accept': 'application/json' }
         });
         if (response.ok) {
+            const title = form.parentElement.querySelector('h2');
+            if (title) {
+                title.style.display = 'none';
+            }
             form.innerHTML = `<div class="form-success-message">
                                 <h3>¡Gracias por tu interés!</h3>
                                 <p>He recibido tu solicitud y me pondré en contacto contigo pronto.</p>

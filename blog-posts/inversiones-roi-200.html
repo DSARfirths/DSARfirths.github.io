@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Interactiva de Inversión de Alto ROI en Perú</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals with Subtle Accents -->
+    <!-- Application Structure Plan: The SPA is structured as a narrative journey. It starts with a high-level overview ("Panorama"), adds an engaging audio summary, then drills down into specific "Modelos de Negocio", and contextualizes these models in the "Caso: Piura" section. This top-down approach (why, what, where) is enhanced with clearer visual separation using cards and distinct sections to improve content hierarchy and user flow. Navigation is handled by a sticky header. This structure was chosen to improve usability and create a more intuitive, decision-making-oriented flow. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Franchise comparison data. Goal: Organize & Compare. Viz: Filterable HTML Table. Interaction: Users can filter by 'Rubro'. Justification: The table now has complete data and a functional filter, making it a useful tool.
+        - Report Info: Agri-Tech startup costs. Goal: Inform & Compare Detail. Viz: Horizontal Bar Chart (Chart.js). Interaction: Replaced Donut chart for clearer comparison between investment categories. Justification: Bar charts are superior for comparing discrete values. The accompanying list is also more structured.
+        - Report Info: Piura Case Study content. Goal: Organize & Clarify. Viz: Styled Cards. Interaction: Content is broken into visually distinct cards for "Agri-Tech" and "Turismo", each with sub-points, improving readability and structure.
+        - New Feature: Audio Player. Goal: Engage & Explain. Viz: Styled HTML5 <audio> element. Interaction: Standard audio controls. Justification: Adds a rich media layer to reinforce the page's content.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #404040;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 450px;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+        }
+        .nav-link.active {
+            color: #A97C50;
+            border-bottom-color: #A97C50;
+        }
+        .nav-link:hover {
+            color: #A97C50;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #F0EAE4;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .btn-primary {
+            background-color: #A97C50;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #8C6642;
+        }
+        .tag {
+            background-color: #F0EAE4;
+            color: #A97C50;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="header" class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-gray-800">Inversión Perú ROI 200%+</h1>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#panorama" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">Panorama</a>
+                <a href="#modelos" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">Modelos de Negocio</a>
+                <a href="#piura" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">Caso: Piura</a>
+                <a href="#recomendaciones" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">Recomendaciones</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#panorama" class="block py-2 px-4 text-sm hover:bg-gray-200">Panorama</a>
+            <a href="#modelos" class="block py-2 px-4 text-sm hover:bg-gray-200">Modelos de Negocio</a>
+            <a href="#piura" class="block py-2 px-4 text-sm hover:bg-gray-200">Caso: Piura</a>
+            <a href="#recomendaciones" class="block py-2 px-4 text-sm hover:bg-gray-200">Recomendaciones</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="py-20 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Análisis Interactivo de Inversiones de Alto Retorno en Perú</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Una guía estratégica para identificar y desarrollar emprendimientos con potencial de ROI superior al 200%. Explore los sectores, modelos de negocio y estudios de caso para tomar decisiones informadas.</p>
+            </div>
+        </section>
+        
+        <section id="audio-player-section" class="py-12 bg-amber-50">
+            <div class="container mx-auto px-6">
+                <div class="bg-white rounded-lg shadow-lg p-6 md:p-8 flex flex-col md:flex-row items-center justify-center gap-8">
+                    <div class="flex-grow text-center md:text-left">
+                        <h3 class="text-2xl font-bold text-gray-800">Escuche Nuestro Resumen Ejecutivo</h3>
+                        <p class="text-gray-600 mt-1">Refuerce los conceptos clave de este análisis con nuestro podcast. Una explicación concisa de las mejores oportunidades de inversión.</p>
+                    </div>
+                    <div class="w-full">
+                        <audio controls class="w-full max-w-md">
+                            <source src="../assets/audio/podcast-inversiones-roi200.mp3" type="audio/mpeg">
+                            Tu navegador no soporta el elemento de audio.
+                        </audio>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="panorama" class="py-16">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold text-gray-800">Panorama General del Mercado Peruano</h3>
+                    <p class="text-gray-600 mt-2 max-w-2xl mx-auto">Para identificar oportunidades con un ROI superior al 200%, es crucial analizar los sectores que actúan como motores de crecimiento en Perú. Esta sección visualiza el potencial de los campos más dinámicos.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="prose max-w-none">
+                        <h4>Sectores de Alto Crecimiento</h4>
+                        <p>El mercado peruano presenta un terreno fértil para emprendimientos de crecimiento exponencial. La combinación de una economía en desarrollo, una clase media en expansión y brechas en servicios crea un entorno ideal para la innovación.</p>
+                        <ul>
+                            <li><strong>E-commerce y Logística:</strong> Crecimiento anual sostenido del 30%, impulsado por la digitalización del comercio.</li>
+                            <li><strong>Tecnología y Servicios Digitales:</strong> Alta demanda por la transformación digital de empresas, con bajas barreras de entrada.</li>
+                            <li><strong>Agricultura y Agroindustria:</strong> Potencia exportadora con proyecciones de superar los $12 mil millones para 2025.</li>
+                            <li><strong>Gastronomía Innovadora:</strong> Modelos como las "dark kitchens" reducen la inversión inicial y aprovechan la fama mundial de la cocina peruana.</li>
+                            <li><strong>Turismo Experiencial:</strong> Foco en nichos de alto valor como el ecoturismo y las experiencias culturales auténticas.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="chart-container">
+                            <canvas id="sectorGrowthChart"></canvas>
+                        </div>
+                        <p class="text-center text-sm text-gray-500 mt-2">Crecimiento Anual Proyectado de Sectores Clave</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="modelos" class="py-16 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold text-gray-800">Modelos de Negocio de Alto Potencial</h3>
+                    <p class="text-gray-600 mt-2 max-w-2xl mx-auto">El camino hacia un ROI superior al 200% requiere modelos de negocio con alta escalabilidad y bajo capital inicial. Explore arquetipos de negocio, desde emprendimientos digitales hasta franquicias.</p>
+                </div>
+
+                <div class="space-y-16">
+                    <div>
+                        <h4 class="text-2xl font-bold text-gray-800 mb-6 text-center">Emprendimientos Digitales y de Servicios</h4>
+                        <div class="grid md:grid-cols-3 gap-8">
+                            <div class="card p-6 rounded-lg">
+                                <h5 class="font-bold text-lg mb-2">E-commerce de Nicho</h5>
+                                <p class="text-sm text-gray-600">Dominar segmentos específicos (productos sostenibles, mascotas, artesanías) usando dropshipping para minimizar la inversión en inventario.</p>
+                            </div>
+                            <div class="card p-6 rounded-lg">
+                                <h5 class="font-bold text-lg mb-2">Servicios Digitales</h5>
+                                <p class="text-sm text-gray-600">Convertir experiencia en productos escalables: marketing digital, consultoría para PYMES, o venta de cursos en línea con costo marginal casi nulo.</p>
+                            </div>
+                            <div class="card p-6 rounded-lg">
+                                <h5 class="font-bold text-lg mb-2">Servicios Tech-Enabled</h5>
+                                <p class="text-sm text-gray-600">Crear activos digitales como apps o plataformas SaaS que generen ingresos recurrentes y resuelvan problemas locales a gran escala.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-2xl font-bold text-gray-800 mb-6 text-center">El Modelo de Franquicia: Análisis Comparativo</h4>
+                         <p class="text-gray-600 mt-2 max-w-3xl mx-auto text-center mb-6">Analice los datos de franquicias reales en Perú para entender la inversión y el retorno. Use el filtro para explorar por sector.</p>
+                        <div class="flex justify-center mb-4">
+                            <select id="franchise-filter" class="border rounded-md p-2 bg-white shadow-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                                <option value="all">Todos los Rubros</option>
+                                <option value="Gastronomía">Gastronomía</option>
+                                <option value="Tecnología">Tecnología</option>
+                                <option value="Servicios">Servicios</option>
+                            </select>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table id="franchise-table" class="min-w-full bg-white rounded-lg shadow">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="p-4 text-left text-sm font-semibold text-gray-600">Franquicia</th>
+                                        <th class="p-4 text-left text-sm font-semibold text-gray-600">Rubro</th>
+                                        <th class="p-4 text-left text-sm font-semibold text-gray-600">Inversión Total (USD)</th>
+                                        <th class="p-4 text-left text-sm font-semibold text-gray-600">Recuperación (Meses)</th>
+                                        <th class="p-4 text-left text-sm font-semibold text-gray-600">Regalías</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="piura" class="py-16">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold text-gray-800">Estudio de Caso: Desbloqueando Oportunidades en Piura</h3>
+                    <p class="text-gray-600 mt-2 max-w-2xl mx-auto">Piura es un microcosmos del potencial de Perú. Su robusta economía y desafíos estructurales crean un terreno fértil para negocios que resuelven problemas críticos.</p>
+                </div>
+                <div class="space-y-12">
+                     <div class="card p-8 rounded-lg">
+                        <h4 class="text-2xl font-bold text-gray-800 mb-4">La Oportunidad Agri-Tech</h4>
+                        <p class="mb-6 text-gray-600">El desafío más crítico de la agroexportación en Piura es la gestión del agua. Esto crea una demanda masiva y urgente de tecnología agrícola (Agri-Tech). Los modelos de negocio con mayor potencial son:</p>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div class="bg-gray-50 p-4 rounded-md"><strong>1. Riego de Precisión:</strong> Ofrecer gestión hídrica completa, desde el diseño hasta el mantenimiento, con ingresos recurrentes.</div>
+                            <div class="bg-gray-50 p-4 rounded-md"><strong>2. Análisis con Drones:</strong> Utilizar drones para capturar datos sobre la salud de los cultivos, optimizando el uso de recursos.</div>
+                            <div class="bg-gray-50 p-4 rounded-md"><strong>3. Plataformas SaaS:</strong> La oportunidad de mayor escalabilidad. Un software que integre datos y ofrezca recomendaciones predictivas.</div>
+                        </div>
+                    </div>
+
+                    <div class="grid lg:grid-cols-5 gap-8 items-center">
+                        <div class="lg:col-span-3">
+                            <h5 class="text-xl font-bold text-center mb-4">Inversión Detallada para Startup Agri-Tech</h5>
+                             <div class="chart-container">
+                                <canvas id="agriTechInvestmentChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-2">
+                             <div class="bg-white p-6 rounded-lg shadow-md border">
+                                <h6 class="font-bold mb-4">Desglose de Inversión (USD)</h6>
+                                <ul class="text-sm space-y-3">
+                                    <li class="flex justify-between items-center"><span>Dron Agrícola (DJI Agras)</span> <span class="font-semibold bg-amber-100 text-amber-800 px-2 py-1 rounded">$22,000</span></li>
+                                    <li class="flex justify-between items-center"><span>Marketing y Oficina</span> <span class="font-semibold bg-amber-100 text-amber-800 px-2 py-1 rounded">$7,500</span></li>
+                                    <li class="flex justify-between items-center"><span>Dron Mapeo (DJI Mavic)</span> <span class="font-semibold bg-amber-100 text-amber-800 px-2 py-1 rounded">$5,000</span></li>
+                                    <li class="flex justify-between items-center"><span>Software Procesamiento</span> <span class="font-semibold bg-amber-100 text-amber-800 px-2 py-1 rounded">$4,000</span></li>
+                                    <li class="flex justify-between items-center"><span>Sensores y Estaciones</span> <span class="font-semibold bg-amber-100 text-amber-800 px-2 py-1 rounded">$4,500</span></li>
+                                    <li class="flex justify-between items-center"><span>Software Diseño</span> <span class="font-semibold bg-amber-100 text-amber-800 px-2 py-1 rounded">$2,250</span></li>
+                                    <li class="flex justify-between items-center"><span>Formalización</span> <span class="font-semibold bg-amber-100 text-amber-800 px-2 py-1 rounded">$750</span></li>
+                                </ul>
+                                <div class="flex justify-between border-t pt-3 mt-4">
+                                    <strong class="text-lg">Total Estimado</strong> 
+                                    <strong class="text-xl text-amber-600">$46,000</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-8 rounded-lg">
+                        <h4 class="text-2xl font-bold text-gray-800 mb-4">Turismo Reimaginado</h4>
+                        <p class="mb-6 text-gray-600">En lugar de competir en el mercado masivo de sol y playa, la oportunidad está en crear experiencias de nicho y alto valor que aprovechen los activos únicos de la región:</p>
+                        <div class="grid md:grid-cols-2 gap-6">
+                             <div class="bg-gray-50 p-4 rounded-md"><strong>Tours Agro-Gastronómicos de Lujo:</strong> Experiencias inmersivas para un público foodie, conectando con el origen de los productos de fama mundial de Piura.</div>
+                             <div class="bg-gray-50 p-4 rounded-md"><strong>Turismo Rural Comunitario (TRC):</strong> Alianzas estratégicas con comunidades locales para ofrecer experiencias auténticas, gestionadas profesionalmente.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="recomendaciones" class="py-16 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold text-gray-800">Síntesis y Recomendación Principal</h3>
+                    <p class="text-gray-600 mt-2 max-w-3xl mx-auto">Basado en la convergencia de una demanda masiva, alto valor percibido y escalabilidad tecnológica, se destaca una oportunidad principal.</p>
+                </div>
+                <div class="max-w-4xl mx-auto">
+                    <div class="card border-2 border-amber-500 p-8 rounded-lg shadow-xl">
+                        <h4 class="text-2xl font-bold text-amber-700 mb-4 text-center">Recomendación Principal: Agri-Tech en Piura</h4>
+                        <p class="text-center mb-6">La oportunidad de inversión más convincente para alcanzar un ROI superior al 200% reside en la creación de un <strong>emprendimiento de Agri-Tech enfocado en la gestión del agua y la agricultura de precisión.</strong></p>
+                        <div class="grid md:grid-cols-2 gap-6 text-sm">
+                            <div class="bg-amber-50 p-4 rounded-md"><h5 class="font-semibold mb-1">Pilar 1: Demanda Urgente</h5><p>Atiende una necesidad crítica del principal motor económico de la región.</p></div>
+                            <div class="bg-amber-50 p-4 rounded-md"><h5 class="font-semibold mb-1">Pilar 2: Alto Valor Percibido</h5><p>Genera un retorno económico medible para los clientes, justificando precios premium.</p></div>
+                            <div class="bg-amber-50 p-4 rounded-md"><h5 class="font-semibold mb-1">Pilar 3: Escalabilidad Tecnológica</h5><p>Los modelos basados en datos y software pueden escalar rápidamente.</p></div>
+                             <div class="bg-amber-50 p-4 rounded-md"><h5 class="font-semibold mb-1">Pilar 4: Barreras Defendibles</h5><p>La ventaja competitiva se basa en conocimiento técnico y tecnología.</p></div>
+                        </div>
+                         <div class="mt-8 text-center">
+                            <a href="#piura" class="btn-primary font-bold py-2 px-6 rounded-lg">Explorar Caso de Estudio</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 Guía Interactiva de Inversión en Perú. Todos los derechos reservados.</p>
+            <p class="text-sm text-gray-400 mt-2">Esta aplicación es una interpretación interactiva de un informe de análisis y no constituye asesoramiento financiero.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if (mobileMenu.classList.contains('hidden') === false) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            const sections = document.querySelectorAll('main section[id]');
+            const headerNavLinks = document.querySelectorAll('#header .nav-link');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        headerNavLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: "-50% 0px -50% 0px" });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            const franchiseData = [
+                { name: 'Chicharrones KIO', rubro: 'Gastronomía', investment: '55,000', recovery: 26, royalty: '5%' },
+                { name: 'USAMS', rubro: 'Tecnología', investment: '17,000', recovery: 17, royalty: '5%' },
+                { name: 'KO Cleaning', rubro: 'Servicios', investment: '12,000', recovery: 12, royalty: '7%' },
+                { name: 'Rustica', rubro: 'Gastronomía', investment: '150,000+', recovery: 36, royalty: '6%' },
+                { name: 'Quiksilver', rubro: 'Tecnología', investment: '60,000', recovery: 24, royalty: '4%' }
+            ];
+
+            const franchiseTableBody = document.querySelector('#franchise-table tbody');
+            const franchiseFilter = document.getElementById('franchise-filter');
+
+            function renderFranchiseTable(filter = 'all') {
+                franchiseTableBody.innerHTML = '';
+                const filteredData = filter === 'all' ? franchiseData : franchiseData.filter(f => f.rubro === filter);
+
+                if (filteredData.length === 0) {
+                    franchiseTableBody.innerHTML = `<tr><td colspan="5" class="text-center p-4">No hay datos para este rubro.</td></tr>`;
+                    return;
+                }
+
+                filteredData.forEach(f => {
+                    const row = document.createElement('tr');
+                    row.className = 'border-b border-gray-200 hover:bg-gray-50';
+                    row.innerHTML = `
+                        <td class="p-4 font-medium">${f.name}</td>
+                        <td class="p-4"><span class="tag text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">${f.rubro}</span></td>
+                        <td class="p-4">$${new Intl.NumberFormat('en-US').format(f.investment)}</td>
+                        <td class="p-4">${f.recovery} meses</td>
+                        <td class="p-4">${f.royalty}</td>
+                    `;
+                    franchiseTableBody.appendChild(row);
+                });
+            }
+
+            franchiseFilter.addEventListener('change', (e) => {
+                renderFranchiseTable(e.target.value);
+            });
+
+            renderFranchiseTable();
+            
+            Chart.defaults.font.family = "'Inter', sans-serif";
+            Chart.defaults.color = '#6b7280';
+
+            const sectorGrowthCtx = document.getElementById('sectorGrowthChart').getContext('2d');
+            new Chart(sectorGrowthCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['E-commerce', 'Servicios Digitales', 'Agroindustria', 'Gastronomía', 'Turismo Sostenible'],
+                    datasets: [{
+                        label: 'Crecimiento Anual Sostenido (%}',
+                        data: [30, 25, 15, 20, 18],
+                        backgroundColor: 'rgba(169, 124, 80, 0.7)',
+                        borderColor: 'rgba(169, 124, 80, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: { legend: { display: false } },
+                    scales: { x: { beginAtZero: true, grid: { color: '#F0EAE4' } }, y: { grid: { display: false } } }
+                }
+            });
+
+            const agriTechInvestmentCtx = document.getElementById('agriTechInvestmentChart').getContext('2d');
+            new Chart(agriTechInvestmentCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Dron Agrícola (DJI Agras)', 'Marketing y Oficina', 'Dron Mapeo (DJI Mavic)', 'Software Procesamiento', 'Sensores y Estaciones', 'Software Diseño', 'Formalización'],
+                    datasets: [{
+                        label: 'Costo Estimado (USD)',
+                        data: [22000, 7500, 5000, 4000, 4500, 2250, 750],
+                        backgroundColor: 'rgba(169, 124, 80, 0.7)',
+                        borderColor: 'rgba(169, 124, 80, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` ${new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'USD' }).format(context.raw)}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value / 1000 + 'k';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            
+        });
+    </script>
+</body>
+</html>

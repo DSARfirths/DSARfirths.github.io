@@ -1,41 +1,45 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">Proyecto – Diego Abad Ramos</title>
-    <link rel="stylesheet" href="assets/css/main.css">
+    <title>Proyecto – Diego Abad Ramos</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ['Inter', 'sans-serif'] },
+            colors: {
+              'primary': '#7C3AED', 'secondary': '#EC4899', 'dark-bg': '#111827',
+              'light-bg': '#1F2937', 'light-text': '#D1D5DB'
+            }
+          }
+        }
+      }
+    </script>
 </head>
-<body id="page-project-detail">
+<body class="bg-dark-bg text-light-text font-sans antialiased">
 
-<nav class="main-nav" id="main-nav-placeholder"></nav>
+    <nav id="main-nav-placeholder" class="sticky top-0 z-50 backdrop-blur-lg border-b border-gray-700/50"></nav>
 
-<header class="hero-section" id="project-hero-header">
-    <div class="container">
-        <h1 id="project-title-header"></h1>
-        <p class="lead-text" id="project-subtitle-header"></p>
-    </div>
-</header>
+    <header id="project-hero" class="py-20 md:py-32 text-center px-4">
+        </header>
 
-<main class="container content-section project-detail">
-    <div id="project-content-container">
-        <!-- El contenido del proyecto se insertará aquí -->
-    </div>
+    <main class="container mx-auto px-4 py-16">
+        <div id="project-detail-container" class="max-w-4xl mx-auto">
+            </div>
+    </main>
 
-    <div class="text-center" style="margin-top: 3rem;">
-        <a href="proyectos.html" class="custom-button button-outline">
-            ← Volver a Proyectos
-        </a>
-    </div>
-</main>
+    <footer id="main-footer-placeholder" class="bg-light-bg py-8"></footer>
 
-<footer class="main-footer" id="main-footer-placeholder"></footer>
-
-<script src="assets/js/projects-data.js" defer></script>
-<script src="assets/js/main.js" defer></script>
+    <script src="assets/js/projects-data.js"></script>
+    <script src="assets/js/main-new.js"></script>
 </body>
 </html>

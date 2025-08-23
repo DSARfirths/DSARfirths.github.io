@@ -1,295 +1,180 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portafolio – Diego Abad Ramos</title>
+    <title>Diego Abad Ramos – Ingeniero, Programador y Diseñador</title>
 
-    <!-- SEO y Metadatos para Redes Sociales -->
     <meta name="description"
-        content="Portafolio de Diego Abad Ramos, Ingeniero Industrial, Programador y Diseñador. Especializado en análisis de datos, optimización de procesos y desarrollo de tecnología.">
+        content="Portafolio de Diego Abad Ramos. Ingeniero Industrial y desarrollador de tecnología especializado en análisis de datos, optimización de procesos y diseño de soluciones funcionales.">
     <meta name="keywords"
-        content="Diego Abad Ramos, Ingeniero Industrial, Programador, Diseñador Industrial, Python, SQL, Power BI, SolidWorks, Automatización, n8n, FlexSim">
-
-    <!-- Open Graph (para Facebook, LinkedIn, etc.) -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://dsarfirths.github.io/">
+        content="Diego Abad Ramos, Ingeniero Industrial, Programador, Diseñador, Python, SQL, Power BI, SolidWorks, Automatización, n8n">
     <meta property="og:title" content="Portafolio – Diego Abad Ramos">
     <meta property="og:description"
-        content="Ingeniero Industrial especializado en convertir ideas complejas en soluciones funcionales.">
-    <meta property="og:image" content="https://dsarfirths.github.io/assets/img/mi-imagen-de-fondo.png">
-
-    <!-- Twitter Card -->
+        content="Convierto datos y procesos complejos en soluciones tecnológicas eficientes.">
+    <meta property="og:image" content="https://dsarfirths.github.io/assets/img/og-image.png">
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://dsarfirths.github.io/">
     <meta property="twitter:title" content="Portafolio – Diego Abad Ramos">
     <meta property="twitter:description"
-        content="Ingeniero Industrial especializado en convertir ideas complejas en soluciones funcionales.">
-    <meta property="twitter:image" content="https://dsarfirths.github.io/assets/img/mi-imagen-de-fondo.png">
+        content="Convierto datos y procesos complejos en soluciones tecnológicas eficientes.">
+    <meta property="twitter:image" content="https://dsarfirths.github.io/assets/img/og-image.png">
 
-    <link rel="stylesheet" href="assets/css/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
     <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@600&display=swap"
-        rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js" defer></script>
+    <script>
+        // Configuración de Tailwind para que coincida con nuestro diseño
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': '#7C3AED', // Morado
+                        'secondary': '#EC4899', // Rosa
+                        'dark-bg': '#111827',
+                        'light-bg': '#1F2937',
+                        'light-text': '#D1D5DB',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
-<body>
+<body class="bg-dark-bg text-light-text font-sans antialiased">
 
-    <nav class="main-nav" id="main-nav-placeholder"></nav>
+    <nav id="main-nav-placeholder" class="sticky top-0 z-50 backdrop-blur-lg border-b border-gray-700/50"></nav>
 
-    <header class="hero-section">
-        <div class="container hero-content">
-            <h1>Diego Abad Ramos</h1>
-            <div class="hero-subtitles">
-                <p class="lead">
-                    Ingeniero Industrial | Programador | Diseñador Industrial
-                </p>
-                <small>
-                    Puesto actual: Consultor Técnico Independiente | Sector: Ingeniería y Tecnología
-                </small>
-            </div>
-            <div class="hero-cta">
-                <a href="#contacto" class="custom-button button-with-icon">
-                    <span>Hablemos de tu proyecto</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
-                    </svg>
+    <header class="min-h-screen flex items-center justify-center text-center px-4">
+        <div class="max-w-4xl mx-auto">
+            <img src="https://placehold.co/128x128/7C3AED/FFFFFF.png?text=DA" alt="Foto de Diego Abad"
+                class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-primary shadow-lg">
+            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight">
+                Hola, soy Diego Abad.
+            </h1>
+            <p class="mt-4 text-xl md:text-2xl text-primary font-bold">
+                Convierto datos y procesos complejos en soluciones tecnológicas eficientes.
+            </p>
+            <p class="mt-6 max-w-2xl mx-auto text-lg text-light-text">
+                Soy Ingeniero Industrial, Programador y Diseñador. Mi trabajo es ser el puente entre la estrategia de
+                negocio y la ejecución técnica para crear herramientas que realmente funcionen.
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+                <button
+                    class="js-contact-trigger w-full sm:w-auto bg-primary text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-violet-700 transition-all transform hover:scale-105">
+                    Hablemos de tu Proyecto
+                </button>
+                <a href="#proyectos"
+                    class="w-full sm:w-auto bg-light-bg text-white font-bold py-3 px-8 rounded-lg text-lg border border-gray-600 hover:bg-gray-700 transition-all">
+                    Ver mis Trabajos
                 </a>
             </div>
         </div>
     </header>
 
-    <section id="historia" class="container content-section animate-on-scroll">
-        <h2>Perfil Profesional</h2>
-        <p class="lead-text text-center" style="max-width: 800px; margin: 0 auto 2.5rem auto;">
-            Soy un Ingeniero Industrial y desarrollador de tecnología que se especializa en convertir ideas complejas en
-            soluciones funcionales, optimizar procesos y ser el puente entre la estrategia y la ejecución técnica.
-        </p>
-        <div class="pillars-container">
-            <div class="pillar-card">
-                <div class="pillar-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path
-                            d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
-                    </svg>
+    <section id="servicios" class="py-20 px-4">
+        <div class="container mx-auto max-w-6xl text-center">
+            <h2 class="text-4xl font-bold text-white mb-4">¿Cómo puedo ayudarte?</h2>
+            <p class="text-lg text-light-text mb-12 max-w-3xl mx-auto">Ofrezco soluciones integrales que abarcan desde
+                el análisis de datos hasta el diseño de productos físicos.</p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div
+                    class="bg-light-bg p-8 rounded-xl border border-gray-700/50 transition-all hover:border-primary hover:scale-105">
+                    <h3 class="text-2xl font-bold text-white mb-3">Análisis y Business Intelligence</h3>
+                    <p class="text-light-text">Transformo tus datos en decisiones estratégicas. Utilizo Python, SQL y
+                        Power BI para crear dashboards y reportes que revelan oportunidades de crecimiento.</p>
                 </div>
-                <h4>Análisis y Business Intelligence</h4>
-                <p>Transformo datos crudos en insights claros con Python, SQL y Power BI para la toma de decisiones
-                    estratégicas.</p>
-            </div>
-            <div class="pillar-card">
-                <div class="pillar-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path
-                            d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z" />
-                    </svg>
+                <div
+                    class="bg-light-bg p-8 rounded-xl border border-gray-700/50 transition-all hover:border-primary hover:scale-105">
+                    <h3 class="text-2xl font-bold text-white mb-3">Optimización y Automatización</h3>
+                    <p class="text-light-text">Rediseño y automatizo tus procesos para que ahorres tiempo y dinero.
+                        Simulo escenarios con FlexSim y creo flujos de trabajo inteligentes con n8n.</p>
                 </div>
-                <h4>Optimización y Automatización</h4>
-                <p>Rediseño operaciones para aumentar la eficiencia y reducir costos mediante simulación (FlexSim) y
-                    automatización (n8n).</p>
-            </div>
-            <div class="pillar-card">
-                <div class="pillar-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path
-                            d="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z" />
-                    </svg>
+                <div
+                    class="bg-light-bg p-8 rounded-xl border border-gray-700/50 transition-all hover:border-primary hover:scale-105">
+                    <h3 class="text-2xl font-bold text-white mb-3">Diseño y Prototipado</h3>
+                    <p class="text-light-text">Convierto tus ideas en realidad. Diseño modelos 3D en SolidWorks, realizo
+                        análisis de ingeniería y creo prototipos funcionales para validar tus productos.</p>
                 </div>
-                <h4>Diseño y Prototipado</h4>
-                <p>Creo prototipos funcionales con SolidWorks y diseño CAD para validar ideas y asegurar que se alineen
-                    a las necesidades del cliente.</p>
             </div>
         </div>
     </section>
 
-    <main class="container content-section">
-        <div class="main-grid">
-            <section class="grid-column" aria-labelledby="proyectos-heading">
-                <h2 id="proyectos-heading">Proyectos</h2>
-                <!-- El contenedor de proyectos destacados se rellenará dinámicamente -->
-                <div class="card-container" id="home-projects-container"></div>
-                <a href="proyectos.html" class="custom-button full-width" aria-label="Ver todos los proyectos">Ver todos
-                    los proyectos</a>
-            </section>
-
-            <section class="grid-column animate-on-scroll" aria-labelledby="experiencia-heading">
-                <h2 id="experiencia-heading">Experiencia</h2>
-                <ul class="experience-list">
-                    <li>
-                        <a href="experiencia-analista-datos.html"
-                            aria-label="Ver experiencia como Analista de Datos y Automatización">
-                            <small class="timeline-date">Agosto 2023 - Actualmente</small>
-                            <h5>Analista de Datos y Automatización (Freelance)</h5>
-                            <p>Convierto datos crudos en decisiones de negocio a través de Python y SQL, y diseño flujos
-                                de trabajo automatizados para maximizar la eficiencia operativa.</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="experiencia-ingeniero-diseno.html"
-                            aria-label="Ver experiencia como Ingeniero de Diseño y Prototipado">
-                            <small class="timeline-date">Agosto 2023 - Actualmente</small>
-                            <h5>Ingeniero de Diseño y Prototipado (Freelance)</h5>
-                            <p>Especializado en llevar ideas desde el concepto inicial hasta prototipos funcionales,
-                                utilizando diseño 3D avanzado y análisis CAE en SolidWorks.</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="experiencia-consultor-procesos.html"
-                            aria-label="Ver experiencia como Consultor de Procesos y Tesis de Ingeniería">
-                            <small class="timeline-date">Agosto 2023 - Actualmente</small>
-                            <h5>Consultor de Procesos y Tesis de Ingeniería</h5>
-                            <p>Aplico mi formación como Ingeniero Industrial para optimizar procesos mediante simulación
-                                (FlexSim) y asesoro a futuros ingenieros en el desarrollo de sus tesis.</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="experiencia-encargado-tienda.html"
-                            aria-label="Ver experiencia como Encargado de Tienda">
-                            <small class="timeline-date">Enero 2023 - Enero 2024</small>
-                            <h5>Encargado de Tienda</h5>
-                            <p>Lideré la gestión operativa y comercial de la tienda, aplicando análisis de datos de
-                                ventas para lograr un crecimiento del 20% y optimizar el inventario.</p>
-                        </a>
-                    </li>
-                </ul>
-            </section>
+    <section id="proyectos" class="py-20 px-4 bg-dark-bg">
+        <div class="container mx-auto max-w-6xl text-center">
+            <h2 class="text-4xl font-bold text-white mb-12">Proyectos Destacados</h2>
+            <div id="home-projects-container" class="grid md:grid-cols-2 gap-8 text-left"></div>
+            <a href="proyectos.html" class="mt-12 inline-block text-primary font-bold text-lg hover:text-violet-400">
+                Ver todos los proyectos &rarr;
+            </a>
         </div>
-    </main>
-
-    <section id="testimonios" class="container content-section animate-on-scroll">
-        <h2 class="text-center">Lo que dicen de mi trabajo</h2>
-        <!-- Contenedor de Swiper -->
-        <div class="swiper testimonial-slider">
+    </section>
+    <section id="testimonios" class="py-20 px-4 bg-gray-900">
+    <div class="container mx-auto max-w-4xl text-center">
+        <h2 class="text-4xl font-bold text-white mb-12">Lo que dicen de mi trabajo</h2>
+        
+        <div class="swiper testimonial-slider relative">
             <div class="swiper-wrapper">
-                <!-- Slide 1 -->
+
                 <div class="swiper-slide">
-                    <div class="testimonial-card">
-                        <blockquote>
-                            <p>"Excelente, el diseño fue clave para que nuestro proyecto terminara de forma óptima. Su
-                                explicación sobre el desarrollo de cada parte nos ayudó a mejorar el resultado final del
-                                proyecto. ¡Excelente trabajo!"</p>
-                        </blockquote>
-                        <div class="testimonial-author">
-                            <div class="author-info">
-                                <strong>- Sebastian Gonzales</strong>
-                                <span>CEO, Empresa Ejemplo</span>
+                    <div class="bg-light-bg p-8 rounded-xl border border-gray-700/50 text-left h-full flex flex-col justify-between">
+                        <p class="text-lg text-light-text italic mb-6">
+                            "Excelente, el diseño fue clave para que nuestro proyecto terminara de forma óptima. Su explicación sobre el desarrollo de cada parte nos ayudó a mejorar el resultado final del proyecto. ¡Excelente trabajo!"
+                        </p>
+                        <footer class="mt-auto pt-6 border-t border-gray-700/50 flex items-center justify-between">
+                            <div>
+                                <p class="font-bold text-white">Sebastian Gonzales</p>
+                                <p class="text-sm text-gray-400">CEO, Empresa Ejemplo</p>
                             </div>
-                            <a href="https://www.linkedin.com/in/sebasti%C3%A1ngonzalesg/" class="author-linkedin"
-                                target="_blank" rel="noopener noreferrer"
-                                aria-label="Perfil de LinkedIn del autor del testimonio"><svg
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path
-                                        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
-                                </svg></a>
-                        </div>
+                            <a href="https://www.linkedin.com/in/sebasti%C3%A1ngonzalesg/" target="_blank" rel="noopener noreferrer" aria-label="Perfil de LinkedIn de Sebastian Gonzales" class="text-gray-500 hover:text-primary transition-colors">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.25 6.5 1.75 1.75 0 016.5 8.25zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93-.94 0-1.62.68-1.62 1.93V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.38.99 3.38 3.3V19z"></path></svg>
+                            </a>
+                        </footer>
                     </div>
                 </div>
-                <!-- Slide 2 -->
+
                 <div class="swiper-slide">
-                    <div class="testimonial-card">
-                        <blockquote>
-                            <p>"La atención al detalle de Diego en el diseño CAD es excepcional. Entregó prototipos que
-                                superaron nuestras expectativas y aceleraron nuestro ciclo de desarrollo."</p>
-                        </blockquote>
-                        <div class="testimonial-author">
-                            <div class="author-info">
-                                <strong>- Nombre del Supervisor</strong>
-                                <span>Jefe de Ingeniería, Otra Empresa</span>
+                    <div class="bg-light-bg p-8 rounded-xl border border-gray-700/50 text-left h-full flex flex-col justify-between">
+                        <p class="text-lg text-light-text italic mb-6">
+                            "La atención al detalle de Diego en el diseño CAD es excepcional. Entregó prototipos que superaron nuestras expectativas y aceleraron nuestro ciclo de desarrollo de manera significativa."
+                        </p>
+                        <footer class="mt-auto pt-6 border-t border-gray-700/50 flex items-center justify-between">
+                            <div>
+                                <p class="font-bold text-white">Nombre del Supervisor</p>
+                                <p class="text-sm text-gray-400">Ingeniero Industrial | UPAO</p>
                             </div>
-                            <a href="https://www.linkedin.com/in/perfil-ejemplo-2" class="author-linkedin"
-                                target="_blank" rel="noopener noreferrer"
-                                aria-label="Perfil de LinkedIn del autor del testimonio"><svg
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path
-                                        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
-                                </svg></a>
-                        </div>
+                            <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Perfil de LinkedIn" class="text-gray-500 hover:text-primary transition-colors">
+                                 <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.25 6.5 1.75 1.75 0 016.5 8.25zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93-.94 0-1.62.68-1.62 1.93V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.38.99 3.38 3.3V19z"></path></svg>
+                            </a>
+                        </footer>
                     </div>
                 </div>
-            </div>
-            <!-- Controles de Swiper -->
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
+                
+                </div>
+            <div class="swiper-pagination mt-8 relative"></div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section id="contacto" class="contact-section animate-on-scroll">
-        <div class="container contact-container">
-            <h2 class="text-center">¿Tienes un proyecto en mente?</h2>
-            <form id="contact-form" action="https://formspree.io/f/xvgqawdz" method="POST">
-                <div class="form-group">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <div class="form-field-wrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path
-                                d="M12 2.5a5.5 5.5 0 0 1 5.5 5.5c0 1.57-.67 3-1.75 4.02A6.52 6.52 0 0 0 12 13a6.52 6.52 0 0 0-3.75.98C7.17 13 6.5 11.57 6.5 10a5.5 5.5 0 0 1 5.5-5.5zM12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 9a8 8 0 0 0-8 8v1h16v-1a8 8 0 0 0-8-8z" />
-                        </svg>
-                        <input type="text" id="nombre" name="nombre" class="form-input" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="email" class="form-label">Correo electrónico</label>
-                    <div class="form-field-wrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path
-                                d="M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm17 4.238l-7.928 7.1L4 7.216V19h16V7.238zM4.511 5l7.55 6.662L19.502 5H4.511z" />
-                        </svg>
-                        <input type="email" id="email" name="email" class="form-input" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="timeline" class="form-label">¿En cuánto tiempo necesitas el proyecto?</label>
-                    <div class="form-field-wrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path
-                                d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5z" />
-                        </svg>
-                        <select id="timeline" name="plazo" class="form-input" required>
-                            <option value="" disabled selected>Selecciona un plazo...</option>
-                            <option value="Muy Urgente (Menos de 2 semanas)">Muy Urgente (Menos de 2 semanas)</option>
-                            <option value="Urgente (Menos de 1 mes)">Urgente (Menos de 1 mes)</option>
-                            <option value="Normal (1-3 meses)">Normal (1-3 meses)</option>
-                            <option value="Flexible (Más de 3 meses)">Flexible (Más de 3 meses)</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="budget" class="form-label">Presupuesto Estimado (S/)</label>
-                    <div class="form-field-wrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><text x="50%" y="18"
-                                text-anchor="middle" font-size="16" font-weight="600"
-                                font-family="var(--font-body)">S/</text></svg>
-                        <input type="number" id="budget" name="budget" class="form-input" required min="50"
-                            placeholder="Ej: 500">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="mensaje" class="form-label">¿Describe el proyecto en el que estás interesado?</label>
-                    <div class="form-field-wrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M21 15l-5-4h3V2H5v9h3l-5 4H1v7h22v-7h-2zM7 4h10v7H7V4z" />
-                        </svg>
-                        <textarea id="mensaje" name="mensaje" class="form-input" rows="4" required
-                            minlength="50"></textarea>
-                    </div>
-                </div>
-                <button type="submit" class="custom-button full-width">Enviar solicitud de proyecto</button>
-            </form>
-        </div>
-    </section>
+    <div id="modal-placeholder"></div>
 
-    <footer class="main-footer" id="main-footer-placeholder"></footer>
+    <footer id="main-footer-placeholder" class="bg-light-bg py-8"></footer>
 
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js" defer></script>
-    <script src="assets/js/projects-data.js" defer></script>
-    <script src="assets/js/main.js" defer></script>
+    <script src="assets/js/projects-data.js"></script>
+    <script src="assets/js/main-new.js"></script>
 
 </body>
 

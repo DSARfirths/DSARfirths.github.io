@@ -1,24 +1,34 @@
-<div class="container nav-container">
-    <a class="nav-logo" href="index.html">
-        <div class="dsar-logo">DSAR</div>
-    </a>
+<!-- nav-component.html -->
+<div class="container mx-auto px-4">
+    <div class="flex justify-between items-center py-4">
+        <!-- Logo -->
+        <a href="index.html" class="text-2xl font-black text-white hover:text-primary transition-colors">
+            DA<span class="text-primary">.</span>
+        </a>
 
-    <div class="nav-links" id="mainNavLinks">
-        <ul>
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="proyectos.html">Proyectos</a></li>
-            <li><a href="laboratorio.html">Laboratorio</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="sobre-diego.html">Sobre Diego</a></li>
-            <li><a href="index.html#contacto">Contacto</a></li>
-        </ul>
+        <!-- Links de Navegación (Desktop) -->
+        <div class="hidden md:flex items-center space-x-8">
+            <a href="index.html" class="text-light-text hover:text-white transition-colors font-medium">Inicio</a>
+            <a href="proyectos.html" class="text-light-text hover:text-white transition-colors font-medium">Proyectos</a>
+            <a href="sobre-diego.html" class="text-light-text hover:text-white transition-colors font-medium">Sobre Mí</a>
+            <button class="js-contact-trigger bg-primary text-white font-bold py-2 px-5 rounded-lg hover:bg-violet-700 transition-all">Contacto</button>
+        </div>
+
+        <!-- Botón de Menú (Móvil) -->
+        <div class="md:hidden">
+            <button id="mobile-menu-button" class="text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
     </div>
-    
-    <div class="nav-controls">
-        <button class="nav-toggler" id="navToggler" aria-label="Mostrar menú" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+
+    <!-- Menú Desplegable (Móvil) -->
+    <div id="mobile-menu" class="hidden md:hidden pb-4">
+        <a href="index.html" class="block text-light-text hover:text-white py-2">Inicio</a>
+        <a href="proyectos.html" class="block text-light-text hover:text-white py-2">Proyectos</a>
+        <a href="sobre-diego.html" class="block text-light-text hover:text-white py-2">Sobre Mí</a>
+        <button class="js-contact-trigger bg-primary text-white font-bold py-2 px-5 rounded-lg hover:bg-violet-700 transition-all">Contacto</button>
     </div>
 </div>

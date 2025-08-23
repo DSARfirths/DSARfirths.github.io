@@ -1,65 +1,80 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
-    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyectos – Diego Abad Ramos</title>
 
-    <!-- SEO y Metadatos para Redes Sociales -->
-    <meta name="description" content="Portafolio completo de los trabajos más relevantes de Diego Abad Ramos. Proyectos de análisis de datos, diseño industrial, automatización y más.">
+    <meta name="description" content="Explora el portafolio de proyectos de Diego Abad Ramos. Casos de estudio en análisis de datos, automatización de procesos, diseño industrial y más.">
     <meta name="keywords" content="Proyectos, Portafolio, Diego Abad Ramos, Análisis de Datos, Diseño Industrial, Automatización, Ingeniería, Tecnología">
-
-    <!-- Open Graph (para Facebook, LinkedIn, etc.) -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://dsarfirths.github.io/proyectos.html">
     <meta property="og:title" content="Proyectos – Diego Abad Ramos">
-    <meta property="og:description" content="Portafolio completo de los trabajos más relevantes de Diego Abad Ramos.">
-    <meta property="og:image" content="https://dsarfirths.github.io/assets/img/mi-imagen-de-fondo.png">
-
-    <!-- Twitter Card -->
+    <meta property="og:description" content="Explora el portafolio de proyectos de Diego Abad Ramos.">
+    <meta property="og:image" content="https://dsarfirths.github.io/assets/img/og-image.png">
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://dsarfirths.github.io/proyectos.html">
     <meta property="twitter:title" content="Proyectos – Diego Abad Ramos">
-    <meta property="twitter:description" content="Portafolio completo de los trabajos más relevantes de Diego Abad Ramos.">
-    <meta property="twitter:image" content="https://dsarfirths.github.io/assets/img/mi-imagen-de-fondo.png">
+    <meta property="twitter:description" content="Explora el portafolio de proyectos de Diego Abad Ramos.">
+    <meta property="twitter:image" content="https://dsarfirths.github.io/assets/img/og-image.png">
 
-    <link rel="stylesheet" href="assets/css/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
-</head>
-<body id="page-proyectos">
-
-<nav class="main-nav" id="main-nav-placeholder"></nav>
-
-<main class="container content-section">
-    <div class="text-center animate-on-scroll" style="padding: 3rem 0; border-bottom: 1px solid #eee; margin-bottom: 3rem;">
-        <h1>Proyectos</h1>
-        <p class="lead-text">Portafolio completo de mis trabajos más relevantes.</p>
-    </div>
-    <div class="search-container animate-on-scroll">
-        <input type="text" id="projectSearch" class="form-input search-input" placeholder="Buscar proyectos por título o tecnología...">
-    </div>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
     
-    <!-- Región ARIA para anunciar resultados a lectores de pantalla -->
-    <div id="searchResultsAnnouncer" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+    
+    <link rel="stylesheet" href="assets/css/custom.css">
 
-    <div id="projectsGrid" class="projects-page-grid animate-on-scroll">
-        <!-- Las tarjetas de proyecto se insertarán aquí dinámicamente -->
-    </div>
+    <script>
+      // Configuración de Tailwind (la misma que en index.html)
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              'primary': '#7C3AED',
+              'secondary': '#EC4899',
+              'dark-bg': '#111827',
+              'light-bg': '#1F2937',
+              'light-text': '#D1D5DB',
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-dark-bg text-light-text font-sans antialiased">
 
-    <div class="text-center animate-on-scroll" style="margin-top: 3rem;">
-        <a href="index.html" class="custom-button button-outline">
-            ← Volver a Inicio
-        </a>
-    </div>
-</main>
+    <nav id="main-nav-placeholder" class="sticky top-0 z-50 backdrop-blur-lg border-b border-gray-700/50"></nav>
 
-<footer class="main-footer" id="main-footer-placeholder"></footer>
+    <main class="container mx-auto px-4 py-16 md:py-24">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-black text-white">Mis Proyectos</h1>
+            <p class="mt-4 text-lg text-light-text max-w-2xl mx-auto">
+                Una colección de mis trabajos más representativos. Usa el buscador para filtrar por tecnología o título.
+            </p>
+        </div>
 
-<script src="assets/js/projects-data.js" defer></script>
-<script src="assets/js/main.js" defer></script>
+        <div class="mb-12 max-w-2xl mx-auto">
+            <input type="text" id="project-search-input" placeholder="Buscar por 'Python', 'Diseño', 'Automatización'..." 
+                   class="w-full p-4 bg-light-bg text-white border-2 border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none transition-all">
+        </div>
+
+        <div id="projects-grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            </div>
+        
+        <div id="no-results-message" class="hidden text-center text-light-text py-16">
+            <p class="text-xl">No se encontraron proyectos que coincidan con tu búsqueda.</p>
+        </div>
+    </main>
+
+    <div id="modal-placeholder"></div>
+
+    <footer id="main-footer-placeholder" class="bg-light-bg py-8"></footer>
+
+    <script src="assets/js/projects-data.js"></script>
+    <script src="assets/js/main-new.js"></script>
 </body>
 </html>
